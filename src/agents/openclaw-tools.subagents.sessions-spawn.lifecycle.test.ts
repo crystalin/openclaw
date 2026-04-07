@@ -174,7 +174,7 @@ async function emitLifecycleEndAndFlush(params: {
   }
 }
 
-describe("openclaw-tools: subagents (sessions_spawn lifecycle)", () => {
+describe("openclaw-tools: subagents (sessions__spawn lifecycle)", () => {
   beforeEach(() => {
     resetSessionsSpawnAnnounceFlowOverride();
     resetSessionsSpawnHookRunnerOverride();
@@ -222,7 +222,7 @@ describe("openclaw-tools: subagents (sessions_spawn lifecycle)", () => {
     process.env.OPENCLAW_TEST_FAST = fastModeEnv.previous;
   });
 
-  it("sessions_spawn runs cleanup flow after subagent completion", async () => {
+  it("sessions__spawn runs cleanup flow after subagent completion", async () => {
     const patchCalls: Array<{ key?: string; label?: string }> = [];
 
     const ctx = setupSessionsSpawnGatewayMock({
@@ -282,7 +282,7 @@ describe("openclaw-tools: subagents (sessions_spawn lifecycle)", () => {
     expect(child.sessionKey?.startsWith("agent:main:subagent:")).toBe(true);
   });
 
-  it("sessions_spawn runs cleanup via lifecycle events", async () => {
+  it("sessions__spawn runs cleanup via lifecycle events", async () => {
     let deletedKey: string | undefined;
     const ctx = setupSessionsSpawnGatewayMock({
       ...buildDiscordCleanupHooks((key) => {
@@ -348,7 +348,7 @@ describe("openclaw-tools: subagents (sessions_spawn lifecycle)", () => {
     expect(deletedKey?.startsWith("agent:main:subagent:")).toBe(true);
   });
 
-  it("sessions_spawn deletes session when cleanup=delete via agent.wait", async () => {
+  it("sessions__spawn deletes session when cleanup=delete via agent.wait", async () => {
     let deletedKey: string | undefined;
     const ctx = setupSessionsSpawnGatewayMock({
       includeChatHistory: true,
@@ -401,7 +401,7 @@ describe("openclaw-tools: subagents (sessions_spawn lifecycle)", () => {
     expect(deletedKey?.startsWith("agent:main:subagent:")).toBe(true);
   });
 
-  it("sessions_spawn records timeout when agent.wait returns timeout", async () => {
+  it("sessions__spawn records timeout when agent.wait returns timeout", async () => {
     const ctx = setupSessionsSpawnGatewayMock({
       includeChatHistory: true,
       chatHistoryText: "still working",
@@ -437,7 +437,7 @@ describe("openclaw-tools: subagents (sessions_spawn lifecycle)", () => {
     expect(getLatestSubagentRunByChildSessionKey(childSessionKey)?.outcome?.status).toBe("timeout");
   });
 
-  it("sessions_spawn announces with requester accountId", async () => {
+  it("sessions__spawn announces with requester accountId", async () => {
     const ctx = setupSessionsSpawnGatewayMock({});
 
     const tool = await getSessionsSpawnTool({

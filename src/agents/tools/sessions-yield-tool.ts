@@ -12,7 +12,7 @@ export function createSessionsYieldTool(opts?: {
 }): AnyAgentTool {
   return {
     label: "Yield",
-    name: "sessions_yield",
+    name: "sessions__yield",
     description:
       "End your current turn. Use after spawning subagents to receive their results as the next message.",
     parameters: SessionsYieldToolSchema,

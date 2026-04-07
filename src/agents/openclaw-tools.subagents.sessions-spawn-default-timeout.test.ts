@@ -33,7 +33,7 @@ async function spawnSubagent(callId: string, payload: Record<string, unknown>) {
   expect(result.details).toMatchObject({ status: "accepted" });
 }
 
-describe("sessions_spawn default runTimeoutSeconds", () => {
+describe("sessions__spawn default runTimeoutSeconds", () => {
   beforeEach(() => {
     sessionsHarness.resetSessionsSpawnConfigOverride();
     resetSubagentRegistryForTests();

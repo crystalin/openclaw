@@ -207,7 +207,7 @@ describe("gateway.tools config", () => {
       gateway: {
         tools: {
           allow: ["gateway"],
-          deny: ["sessions_spawn", "sessions_send"],
+          deny: ["sessions__spawn", "sessions__send"],
         },
       },
     });

@@ -477,7 +477,7 @@ function buildResponsesPayload(body: Record<string, unknown>) {
     return buildToolCallEventsWithArgs("read", { path: "QA_KICKOFF_TASK.md" });
   }
   if (/delegate|subagent/i.test(prompt) && !toolOutput) {
-    return buildToolCallEventsWithArgs("sessions_spawn", {
+    return buildToolCallEventsWithArgs("sessions__spawn", {
       task: "Inspect the QA workspace and return one concise protocol note.",
       label: "qa-sidecar",
       thread: false,

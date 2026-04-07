@@ -122,7 +122,7 @@ describe("readFirstUserMessageFromTranscript", () => {
         message: {
           role: "user",
           content: "Forwarded by session tool",
-          provenance: { kind: "inter_session", sourceTool: "sessions_send" },
+          provenance: { kind: "inter_session", sourceTool: "sessions__send" },
         },
       }),
       JSON.stringify({

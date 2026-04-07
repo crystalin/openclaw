@@ -140,7 +140,7 @@ export function createSessionsSpawnTool(
 ): AnyAgentTool {
   return {
     label: "Sessions",
-    name: "sessions_spawn",
+    name: "sessions__spawn",
     displaySummary: SESSIONS_SPAWN_TOOL_DISPLAY_SUMMARY,
     description: describeSessionsSpawnTool(),
     parameters: SessionsSpawnToolSchema,
@@ -151,7 +151,7 @@ export function createSessionsSpawnTool(
       );
       if (unsupportedParam) {
         throw new ToolInputError(
-          `sessions_spawn does not support "${unsupportedParam}". Use "message" or "sessions_send" for channel delivery.`,
+          `sessions__spawn does not support "${unsupportedParam}". Use "message" or "sessions__send" for channel delivery.`,
         );
       }
       const task = readStringParam(params, "task", { required: true });

@@ -59,7 +59,7 @@ async function expectThinkingPropagation(input: {
   expect(findPatchedThinking(gateway.calls)).toBe(input.expected);
 }
 
-describe("sessions_spawn thinking defaults", () => {
+describe("sessions__spawn thinking defaults", () => {
   beforeEach(() => {
     harness.resetSessionsSpawnConfigOverride();
     resetSubagentRegistryForTests();
@@ -75,7 +75,7 @@ describe("sessions_spawn thinking defaults", () => {
     });
   });
 
-  it("prefers explicit sessions_spawn.thinking over config default", async () => {
+  it("prefers explicit sessions__spawn.thinking over config default", async () => {
     await expectThinkingPropagation({
       callId: "call-2",
       payload: { task: "hello", thinking: "low" },

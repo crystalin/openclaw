@@ -74,7 +74,7 @@ openclaw tasks flow cancel <lookup>
 | Source                 | Runtime type | When a task record is created                          | Default notify policy |
 | ---------------------- | ------------ | ------------------------------------------------------ | --------------------- |
 | ACP background runs    | `acp`        | Spawning a child ACP session                           | `done_only`           |
-| Subagent orchestration | `subagent`   | Spawning a subagent via `sessions_spawn`               | `done_only`           |
+| Subagent orchestration | `subagent`   | Spawning a subagent via `sessions__spawn`              | `done_only`           |
 | Cron jobs (all types)  | `cron`       | Every cron execution (main-session and isolated)       | `silent`              |
 | CLI operations         | `cli`        | `openclaw agent` commands that run through the gateway | `silent`              |
 | Agent media jobs       | `cli`        | Session-backed `video_generate` runs                   | `silent`              |

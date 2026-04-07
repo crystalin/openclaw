@@ -423,7 +423,7 @@ describe("sanitizeSessionHistory", () => {
         provenance: {
           kind: "inter_session",
           sourceSessionKey: "agent:main:req",
-          sourceTool: "sessions_send",
+          sourceTool: "sessions__send",
         },
       }),
     ];

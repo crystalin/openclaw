@@ -289,13 +289,13 @@ Legacy `agent.*` configs are migrated by `openclaw doctor`; prefer `agents.defau
 {
   "tools": {
     "sessions": { "visibility": "tree" },
-    "allow": ["sessions_list", "sessions_send", "sessions_history", "session_status"],
+    "allow": ["sessions__list", "sessions__send", "sessions__history", "session_status"],
     "deny": ["exec", "write", "edit", "apply_patch", "read", "browser"]
   }
 }
 ```
 
-`sessions_history` in this profile still returns a bounded, sanitized recall
+`sessions__history` in this profile still returns a bounded, sanitized recall
 view rather than a raw transcript dump. Assistant recall strips thinking tags,
 `<relevant-memories>` scaffolding, plain-text tool-call XML payloads
 (including `<tool_call>...</tool_call>`,

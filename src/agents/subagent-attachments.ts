@@ -69,9 +69,9 @@ export type MaterializeSubagentAttachmentsResult =
 function resolveAttachmentLimits(config: OpenClawConfig): AttachmentLimits {
   const attachmentsCfg = (
     config as unknown as {
-      tools?: { sessions_spawn?: { attachments?: Record<string, unknown> } };
+      tools?: { sessions__spawn?: { attachments?: Record<string, unknown> } };
     }
-  ).tools?.sessions_spawn?.attachments;
+  ).tools?.sessions__spawn?.attachments;
   return {
     enabled: attachmentsCfg?.enabled === true,
     maxTotalBytes:
@@ -108,7 +108,7 @@ export async function materializeSubagentAttachments(params: {
     return {
       status: "forbidden",
       error:
-        "attachments are disabled for sessions_spawn (enable tools.sessions_spawn.attachments.enabled)",
+        "attachments are disabled for sessions__spawn (enable tools.sessions__spawn.attachments.enabled)",
     };
   }
   if (requestedAttachments.length > limits.maxFiles) {

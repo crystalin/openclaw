@@ -58,9 +58,9 @@ The Tooling section also includes runtime guidance for long-running work:
   the push-based wake path when it emits output or fails
 - use `process` for logs, status, input, or intervention when you need to
   inspect a running command
-- if the task is larger, prefer `sessions_spawn`; sub-agent completion is
+- if the task is larger, prefer `sessions__spawn`; sub-agent completion is
   push-based and auto-announces back to the requester
-- do not poll `subagents list` / `sessions_list` in a loop just to wait for
+- do not poll `subagents list` / `sessions__list` in a loop just to wait for
   completion
 
 When the experimental `update_plan` tool is enabled, Tooling also tells the

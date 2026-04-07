@@ -11,7 +11,7 @@ const hoisted = vi.hoisted(() => ({
   configOverride: {
     session: { mainKey: "main", scope: "per-sender" },
     tools: {
-      sessions_spawn: {
+      sessions__spawn: {
         attachments: {
           enabled: true,
           maxFiles: 50,
@@ -170,7 +170,7 @@ beforeAll(async () => {
   }));
 });
 
-describe("sessions_spawn subagent lifecycle hooks", () => {
+describe("sessions__spawn subagent lifecycle hooks", () => {
   beforeEach(() => {
     resetSubagentRegistryForTests();
     hoisted.callGatewayMock.mockReset();

@@ -23,7 +23,7 @@ Auth profiles are **per-agent**. Each agent reads from its own:
 ~/.openclaw/agents/<agentId>/agent/auth-profiles.json
 ```
 
-`sessions_history` is the safer cross-session recall path here too: it returns
+`sessions__history` is the safer cross-session recall path here too: it returns
 a bounded, sanitized view, not a raw transcript dump. Assistant recall strips
 thinking tags, `<relevant-memories>` scaffolding, plain-text tool-call XML
 payloads (including `<tool_call>...</tool_call>`,
@@ -524,10 +524,10 @@ and a tighter tool policy:
           allow: [
             "exec",
             "read",
-            "sessions_list",
-            "sessions_history",
-            "sessions_send",
-            "sessions_spawn",
+            "sessions__list",
+            "sessions__history",
+            "sessions__send",
+            "sessions__spawn",
             "session_status",
           ],
           deny: ["write", "edit", "apply_patch", "browser", "canvas", "nodes", "cron"],

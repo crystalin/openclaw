@@ -1,5 +1,5 @@
 /**
- * Integration test proving that sessions_yield produces a clean end_turn exit
+ * Integration test proving that sessions__yield produces a clean end_turn exit
  * with no pending tool calls, so the parent session is idle when subagent
  * results arrive.
  */
@@ -15,7 +15,7 @@ import { isEmbeddedPiRunActive, queueEmbeddedPiMessage } from "./runs.js";
 
 let runEmbeddedPiAgent: typeof import("./run.js").runEmbeddedPiAgent;
 
-describe("sessions_yield orchestration", () => {
+describe("sessions__yield orchestration", () => {
   beforeAll(async () => {
     ({ runEmbeddedPiAgent } = await loadRunOverflowCompactionHarness());
   });
@@ -28,7 +28,7 @@ describe("sessions_yield orchestration", () => {
   it("parent session is idle after yield — end_turn, no pendingToolCalls", async () => {
     const sessionId = "yield-parent-session";
 
-    // Simulate an attempt where sessions_yield was called
+    // Simulate an attempt where sessions__yield was called
     mockedRunEmbeddedAttempt.mockResolvedValueOnce(
       makeAttemptResult({
         promptError: null,

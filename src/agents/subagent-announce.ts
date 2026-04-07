@@ -123,11 +123,11 @@ export function buildSubagentSystemPrompt(params: {
   if (canSpawn) {
     lines.push(
       "## Sub-Agent Spawning",
-      "You CAN spawn your own sub-agents for parallel or complex work using `sessions_spawn`.",
+      "You CAN spawn your own sub-agents for parallel or complex work using `sessions__spawn`.",
       "Use the `subagents` tool to steer, kill, or do an on-demand status check for your spawned sub-agents.",
       "Your sub-agents will announce their results back to you automatically (not to the main agent).",
       "Default workflow: spawn work, continue orchestrating, and wait for auto-announced completions.",
-      "Auto-announce is push-based. After spawning children, do NOT call sessions_list, sessions_history, exec sleep, or any polling tool.",
+      "Auto-announce is push-based. After spawning children, do NOT call sessions__list, sessions__history, exec sleep, or any polling tool.",
       "Wait for completion events to arrive as user messages.",
       "Track expected child session keys and only send your final answer after completion events for ALL expected children arrive.",
       "If a child completion event arrives AFTER you already sent your final answer, reply ONLY with NO_REPLY.",
@@ -135,9 +135,9 @@ export function buildSubagentSystemPrompt(params: {
       "Coordinate their work and synthesize results before reporting back.",
       ...(acpEnabled
         ? [
-            'For ACP harness sessions (codex/claudecode/gemini), use `sessions_spawn` with `runtime: "acp"` (set `agentId` unless `acp.defaultAgent` is configured).',
+            'For ACP harness sessions (codex/claudecode/gemini), use `sessions__spawn` with `runtime: "acp"` (set `agentId` unless `acp.defaultAgent` is configured).',
             '`agents_list` and `subagents` apply to OpenClaw sub-agents (`runtime: "subagent"`); ACP harness ids are controlled by `acp.allowedAgents`.',
-            "Do not ask users to run slash commands or CLI when `sessions_spawn` can do it directly.",
+            "Do not ask users to run slash commands or CLI when `sessions__spawn` can do it directly.",
             "Do not use `exec` (`openclaw ...`, `acpx ...`) to spawn ACP sessions.",
             'Use `subagents` only for OpenClaw subagents (`runtime: "subagent"`).',
             "Subagent results auto-announce back to you; ACP sessions continue in their bound thread.",

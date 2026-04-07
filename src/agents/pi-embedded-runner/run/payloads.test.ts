@@ -112,17 +112,17 @@ describe("buildEmbeddedRunPayloads tool-error warnings", () => {
   it.each([
     {
       name: "default relay failure",
-      lastToolError: { toolName: "sessions_send", error: "delivery timeout" },
+      lastToolError: { toolName: "sessions__send", error: "delivery timeout" },
     },
     {
       name: "mutating relay failure",
       lastToolError: {
-        toolName: "sessions_send",
+        toolName: "sessions__send",
         error: "delivery timeout",
         mutatingAction: true,
       },
     },
-  ])("suppresses sessions_send errors for $name", ({ lastToolError }) => {
+  ])("suppresses sessions__send errors for $name", ({ lastToolError }) => {
     expectNoPayloads({
       lastToolError,
       verboseLevel: "on",

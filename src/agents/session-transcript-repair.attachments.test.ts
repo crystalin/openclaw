@@ -10,7 +10,7 @@ function mkSessionsSpawnToolCall(content: string): AgentMessage {
       {
         type: "toolCall",
         id: "call_1",
-        name: "sessions_spawn",
+        name: "sessions__spawn",
         arguments: {
           task: "do thing",
           attachments: [
@@ -27,7 +27,7 @@ function mkSessionsSpawnToolCall(content: string): AgentMessage {
   });
 }
 
-describe("sanitizeToolCallInputs redacts sessions_spawn attachments", () => {
+describe("sanitizeToolCallInputs redacts sessions__spawn attachments", () => {
   it("replaces attachments[].content with __OPENCLAW_REDACTED__", () => {
     const secret = "SUPER_SECRET_SHOULD_NOT_PERSIST"; // pragma: allowlist secret
     const input = [mkSessionsSpawnToolCall(secret)];
@@ -38,7 +38,7 @@ describe("sanitizeToolCallInputs redacts sessions_spawn attachments", () => {
       name?: string;
       arguments?: { attachments?: Array<{ content?: string }> };
     } | null;
-    expect(tool?.name).toBe("sessions_spawn");
+    expect(tool?.name).toBe("sessions__spawn");
     expect(tool?.arguments?.attachments?.[0]?.content).toBe("__OPENCLAW_REDACTED__");
     expect(JSON.stringify(out)).not.toContain(secret);
   });
@@ -52,7 +52,7 @@ describe("sanitizeToolCallInputs redacts sessions_spawn attachments", () => {
           {
             type: "toolUse",
             id: "call_2",
-            name: "sessions_spawn",
+            name: "sessions__spawn",
             input: {
               task: "do thing",
               attachments: [{ name: "x.txt", content: secret }],

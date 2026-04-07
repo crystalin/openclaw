@@ -256,13 +256,13 @@ describe("subagents spawn action", () => {
 
   it("formats forbidden spawn failures", async () => {
     spawnSubagentDirectMock.mockResolvedValue(
-      forbiddenResult("agentId is not allowed for sessions_spawn (allowed: alpha)"),
+      forbiddenResult("agentId is not allowed for sessions__spawn (allowed: alpha)"),
     );
     const result = await handleSubagentsSpawnAction(buildContext());
     expect(result).toEqual({
       shouldContinue: false,
       reply: {
-        text: "Spawn failed: agentId is not allowed for sessions_spawn (allowed: alpha)",
+        text: "Spawn failed: agentId is not allowed for sessions__spawn (allowed: alpha)",
       },
     });
   });

@@ -254,9 +254,9 @@ For threat model + hardening guidance (including `openclaw security audit --deep
 
 ### Sub-agent delegation hardening
 
-- Keep `sessions_spawn` denied unless you explicitly need delegated runs.
+- Keep `sessions__spawn` denied unless you explicitly need delegated runs.
 - Keep `agents.list[].subagents.allowAgents` narrow, and only include agents with sandbox settings you trust.
-- When delegation must stay sandboxed, call `sessions_spawn` with `sandbox: "require"` (default is `inherit`).
+- When delegation must stay sandboxed, call `sessions__spawn` with `sandbox: "require"` (default is `inherit`).
   - `sandbox: "require"` rejects the spawn unless the target child runtime is sandboxed.
   - This prevents a less-restricted session from delegating work into an unsandboxed child by mistake.
 

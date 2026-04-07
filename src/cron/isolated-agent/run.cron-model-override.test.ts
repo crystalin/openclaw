@@ -120,7 +120,7 @@ describe("runCronIsolatedAgentTurn — cron model override (#21057)", () => {
     expect(result.status).toBe("error");
 
     // The session entry should record the intended cron model override (Sonnet)
-    // so that sessions_list does not fall back to the agent default (Opus).
+    // so that sessions__list does not fall back to the agent default (Opus).
     //
     // BUG (#21057): before the fix, the model was only written to the session
     // entry AFTER a successful run (in the post-run telemetry block), so it
@@ -132,7 +132,7 @@ describe("runCronIsolatedAgentTurn — cron model override (#21057)", () => {
 
   it("session entry already carries cron model at pre-run persist time (race condition)", async () => {
     // Capture a deep snapshot of the session entry at each persist call so we
-    // can inspect what sessions_list would see mid-run — before the post-run
+    // can inspect what sessions__list would see mid-run — before the post-run
     // persist overwrites the entry with the actual model from agentMeta.
     const persistedSnapshots: Array<{
       model?: string;
@@ -157,7 +157,7 @@ describe("runCronIsolatedAgentTurn — cron model override (#21057)", () => {
     await runCronIsolatedAgentTurn(makeParams());
 
     // Persist ordering: [0] skills snapshot, [1] pre-run model+systemSent,
-    // [2] post-run telemetry.  Index 1 is what a concurrent sessions_list
+    // [2] post-run telemetry.  Index 1 is what a concurrent sessions__list
     // would read while the agent run is in flight.
     expect(persistedSnapshots.length).toBeGreaterThanOrEqual(3);
     const preRunSnapshot = persistedSnapshots[1];

@@ -304,9 +304,9 @@ Details: [Nodes](https://docs.openclaw.ai/nodes) · [macOS app](https://docs.ope
 ## Agent to Agent (sessions\_\* tools)
 
 - Use these to coordinate work across sessions without jumping between chat surfaces.
-- `sessions_list` — discover active sessions (agents) and their metadata.
-- `sessions_history` — fetch transcript logs for a session.
-- `sessions_send` — message another session; optional reply‑back ping‑pong + announce step (`REPLY_SKIP`, `ANNOUNCE_SKIP`).
+- `sessions__list` — discover active sessions (agents) and their metadata.
+- `sessions__history` — fetch transcript logs for a session.
+- `sessions__send` — message another session; optional reply‑back ping‑pong + announce step (`REPLY_SKIP`, `ANNOUNCE_SKIP`).
 
 Details: [Session tools](https://docs.openclaw.ai/concepts/session-tool)
 
@@ -382,7 +382,7 @@ Minimal `~/.openclaw/openclaw.json` (model + defaults):
 
 - **Default:** tools run on the host for the **main** session, so the agent has full access when it’s just you.
 - **Group/channel safety:** set `agents.defaults.sandbox.mode: "non-main"` to run **non‑main sessions** (groups/channels) inside per‑session Docker sandboxes; bash then runs in Docker for those sessions.
-- **Sandbox defaults:** allowlist `bash`, `process`, `read`, `write`, `edit`, `sessions_list`, `sessions_history`, `sessions_send`, `sessions_spawn`; denylist `browser`, `canvas`, `nodes`, `cron`, `discord`, `gateway`.
+- **Sandbox defaults:** allowlist `bash`, `process`, `read`, `write`, `edit`, `sessions__list`, `sessions__history`, `sessions__send`, `sessions__spawn`; denylist `browser`, `canvas`, `nodes`, `cron`, `discord`, `gateway`.
 
 Details: [Security guide](https://docs.openclaw.ai/gateway/security) · [Docker + sandboxing](https://docs.openclaw.ai/install/docker) · [Sandbox config](https://docs.openclaw.ai/gateway/configuration)
 

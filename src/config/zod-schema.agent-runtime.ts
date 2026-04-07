@@ -886,7 +886,7 @@ export const ToolsSchema = z
       })
       .strict()
       .optional(),
-    sessions_spawn: z
+    sessions__spawn: z
       .object({
         attachments: z
           .object({

@@ -1,6 +1,6 @@
 ---
 name: acp-router
-description: Route plain-language requests for Pi, Claude Code, Codex, Cursor, Copilot, OpenClaw ACP, OpenCode, Gemini CLI, Qwen, Kiro, Kimi, iFlow, Factory Droid, Kilocode, or ACP harness work into either OpenClaw ACP runtime sessions or direct acpx-driven sessions ("telephone game" flow). For coding-agent thread requests, read this skill first, then use only `sessions_spawn` for thread creation.
+description: Route plain-language requests for Pi, Claude Code, Codex, Cursor, Copilot, OpenClaw ACP, OpenCode, Gemini CLI, Qwen, Kiro, Kimi, iFlow, Factory Droid, Kilocode, or ACP harness work into either OpenClaw ACP runtime sessions or direct acpx-driven sessions ("telephone game" flow). For coding-agent thread requests, read this skill first, then use only `sessions__spawn` for thread creation.
 user-invocable: false
 ---
 
@@ -26,7 +26,7 @@ Mandatory preflight for coding-agent thread requests:
 
 Choose one of these paths:
 
-1. OpenClaw ACP runtime path (default): use `sessions_spawn` / ACP runtime tools.
+1. OpenClaw ACP runtime path (default): use `sessions__spawn` / ACP runtime tools.
 2. Direct `acpx` path (telephone game): use `acpx` CLI through `exec` to drive the harness session directly.
 
 Use direct `acpx` when one of these is true:
@@ -69,11 +69,11 @@ If policy rejects the chosen id, report the policy error clearly and ask for the
 Required behavior:
 
 1. For ACP harness thread spawn requests, read this skill first in the same turn before calling tools.
-2. Use `sessions_spawn` with:
+2. Use `sessions__spawn` with:
    - `runtime: "acp"`
    - `thread: true`
    - `mode: "session"` (unless user explicitly wants one-shot)
-3. For ACP harness thread creation, do not use `message` with `action=thread-create`; `sessions_spawn` is the only thread-create path.
+3. For ACP harness thread creation, do not use `message` with `action=thread-create`; `sessions__spawn` is the only thread-create path.
 4. Put requested work in `task` so the ACP session gets it immediately.
 5. Set `agentId` explicitly unless ACP default agent is known.
 6. Do not ask user to run slash commands or CLI when this path works directly.

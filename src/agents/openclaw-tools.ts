@@ -108,7 +108,7 @@ export function createOpenClawTools(
      * subagents inherit the real workspace path instead of the sandbox copy.
      */
     spawnWorkspaceDir?: string;
-    /** Callback invoked when sessions_yield tool is called. */
+    /** Callback invoked when sessions__yield tool is called. */
     onYield?: (message: string) => Promise<void> | void;
     /** Allow plugin tools for this tool set to late-bind the gateway subagent. */
     allowGatewaySubagentBinding?: boolean;

@@ -10,7 +10,7 @@ const hoisted = vi.hoisted(() => ({
   configOverride: {
     session: { mainKey: "main", scope: "per-sender" },
     tools: {
-      sessions_spawn: {
+      sessions__spawn: {
         attachments: {
           enabled: true,
           maxFiles: 50,
@@ -212,7 +212,7 @@ describe("subagent spawn allowlist + sandbox guards", () => {
     });
     const result = await spawn({});
     expect(result).toMatchObject({ status: "forbidden" });
-    expect(String(result.error ?? "")).toContain("sessions_spawn requires explicit agentId");
+    expect(String(result.error ?? "")).toContain("sessions__spawn requires explicit agentId");
     expect(hoisted.callGatewayMock).not.toHaveBeenCalled();
   });
 

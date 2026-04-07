@@ -52,7 +52,7 @@ Injected workspace files:
 - BOOTSTRAP.md: OK | raw 0 chars (~0 tok) | injected 0 chars (~0 tok)
 
 Skills list (system prompt text): 2,184 chars (~546 tok) (12 skills)
-Tools: read, edit, write, exec, process, browser, message, sessions_send, …
+Tools: read, edit, write, exec, process, browser, message, sessions__send, …
 Tool list (system prompt text): 1,032 chars (~258 tok)
 Tool schemas (JSON): 31,988 chars (~7,997 tok) (counts toward context; not shown as text)
 Tools: (same as above)

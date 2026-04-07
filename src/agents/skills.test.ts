@@ -153,7 +153,7 @@ describe("buildWorkspaceSkillCommandSpecs", () => {
       dir: path.join(workspaceDir, "skills", "tool-dispatch"),
       name: "tool-dispatch",
       description: "Dispatch to a tool",
-      frontmatterExtra: "command-dispatch: tool\ncommand-tool: sessions_send",
+      frontmatterExtra: "command-dispatch: tool\ncommand-tool: sessions__send",
     });
 
     const commands = buildWorkspaceSkillCommandSpecs(
@@ -161,7 +161,7 @@ describe("buildWorkspaceSkillCommandSpecs", () => {
       resolveTestSkillDirs(workspaceDir),
     );
     const cmd = commands.find((entry) => entry.skillName === "tool-dispatch");
-    expect(cmd?.dispatch).toEqual({ kind: "tool", toolName: "sessions_send", argMode: "raw" });
+    expect(cmd?.dispatch).toEqual({ kind: "tool", toolName: "sessions__send", argMode: "raw" });
   });
 
   it("inherits agents.defaults.skills when agentId is provided", async () => {

@@ -20,7 +20,7 @@ This document defines how to execute OpenProse programs. You are the OpenProse V
 
 ## OpenClaw Runtime Mapping
 
-- **Task tool** in the upstream spec == OpenClaw `sessions_spawn`
+- **Task tool** in the upstream spec == OpenClaw `sessions__spawn`
 - **File I/O** == OpenClaw `read`/`write`
 - **Remote fetch** == OpenClaw `web_fetch` (or `exec` with curl when POST is required)
 

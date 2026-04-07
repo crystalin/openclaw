@@ -23,11 +23,11 @@ instead of ACP.
 
 There are three nearby surfaces that are easy to confuse:
 
-| You want to...                                                                     | Use this                              | Notes                                                                                                       |
-| ---------------------------------------------------------------------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Run Codex, Claude Code, Gemini CLI, or another external harness _through_ OpenClaw | This page: ACP agents                 | Chat-bound sessions, `/acp spawn`, `sessions_spawn({ runtime: "acp" })`, background tasks, runtime controls |
-| Expose an OpenClaw Gateway session _as_ an ACP server for an editor or client      | [`openclaw acp`](/cli/acp)            | Bridge mode. IDE/client talks ACP to OpenClaw over stdio/WebSocket                                          |
-| Reuse a local AI CLI as a text-only fallback model                                 | [CLI Backends](/gateway/cli-backends) | Not ACP. No OpenClaw tools, no ACP controls, no harness runtime                                             |
+| You want to...                                                                     | Use this                              | Notes                                                                                                        |
+| ---------------------------------------------------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Run Codex, Claude Code, Gemini CLI, or another external harness _through_ OpenClaw | This page: ACP agents                 | Chat-bound sessions, `/acp spawn`, `sessions__spawn({ runtime: "acp" })`, background tasks, runtime controls |
+| Expose an OpenClaw Gateway session _as_ an ACP server for an editor or client      | [`openclaw acp`](/cli/acp)            | Bridge mode. IDE/client talks ACP to OpenClaw over stdio/WebSocket                                           |
+| Reuse a local AI CLI as a text-only fallback model                                 | [CLI Backends](/gateway/cli-backends) | Not ACP. No OpenClaw tools, no ACP controls, no harness runtime                                              |
 
 ## Does this work out of the box?
 
@@ -91,12 +91,12 @@ What OpenClaw should do:
 
 Use ACP when you want an external harness runtime. Use sub-agents when you want OpenClaw-native delegated runs.
 
-| Area          | ACP session                           | Sub-agent run                      |
-| ------------- | ------------------------------------- | ---------------------------------- |
-| Runtime       | ACP backend plugin (for example acpx) | OpenClaw native sub-agent runtime  |
-| Session key   | `agent:<agentId>:acp:<uuid>`          | `agent:<agentId>:subagent:<uuid>`  |
-| Main commands | `/acp ...`                            | `/subagents ...`                   |
-| Spawn tool    | `sessions_spawn` with `runtime:"acp"` | `sessions_spawn` (default runtime) |
+| Area          | ACP session                            | Sub-agent run                       |
+| ------------- | -------------------------------------- | ----------------------------------- |
+| Runtime       | ACP backend plugin (for example acpx)  | OpenClaw native sub-agent runtime   |
+| Session key   | `agent:<agentId>:acp:<uuid>`           | `agent:<agentId>:subagent:<uuid>`   |
+| Main commands | `/acp ...`                             | `/subagents ...`                    |
+| Spawn tool    | `sessions__spawn` with `runtime:"acp"` | `sessions__spawn` (default runtime) |
 
 See also [Sub-agents](/tools/subagents).
 
@@ -325,7 +325,7 @@ Behavior:
 
 ## Start ACP sessions (interfaces)
 
-### From `sessions_spawn`
+### From `sessions__spawn`
 
 Use `runtime: "acp"` to start an ACP session from an agent turn or tool call.
 
@@ -399,7 +399,7 @@ Recommended gate:
    `src/gateway/sessions-patch.ts` (`subagent:* or acp:* sessions`).
 3. Open a temporary ACPX bridge session to a live agent (for example
    `razor(main)` on `jpclawhq`).
-4. Ask that agent to call `sessions_spawn` with:
+4. Ask that agent to call `sessions__spawn` with:
    - `runtime: "acp"`
    - `agentId: "codex"`
    - `mode: "run"`
@@ -413,7 +413,7 @@ Recommended gate:
 Example prompt to the live agent:
 
 ```text
-Use the sessions_spawn tool now with runtime: "acp", agentId: "codex", and mode: "run".
+Use the sessions__spawn tool now with runtime: "acp", agentId: "codex", and mode: "run".
 Set the task to: "Reply with exactly LIVE-ACP-SPAWN-OK".
 Then report only: accepted=<yes/no>; childSessionKey=<value or none>; error=<exact text or none>.
 ```
@@ -433,10 +433,10 @@ ACP sessions currently run on the host runtime, not inside the OpenClaw sandbox.
 
 Current limitations:
 
-- If the requester session is sandboxed, ACP spawns are blocked for both `sessions_spawn({ runtime: "acp" })` and `/acp spawn`.
+- If the requester session is sandboxed, ACP spawns are blocked for both `sessions__spawn({ runtime: "acp" })` and `/acp spawn`.
   - Error: `Sandboxed sessions cannot spawn ACP sessions because runtime="acp" runs on the host. Use runtime="subagent" from sandboxed sessions.`
-- `sessions_spawn` with `runtime: "acp"` does not support `sandbox: "require"`.
-  - Error: `sessions_spawn sandbox="require" is unsupported for runtime="acp" because ACP sessions run outside the sandbox. Use runtime="subagent" or sandbox="inherit".`
+- `sessions__spawn` with `runtime: "acp"` does not support `sandbox: "require"`.
+  - Error: `sessions__spawn sandbox="require" is unsupported for runtime="acp" because ACP sessions run outside the sandbox. Use runtime="subagent" or sandbox="inherit".`
 
 Use `runtime: "subagent"` when you need sandbox-enforced execution.
 
@@ -829,7 +829,7 @@ Restart the gateway after changing these values.
 | `Only <user-id> can rebind this channel/conversation/thread.`               | Another user owns the active binding target.                                    | Rebind as owner or use a different conversation or thread.                                                                                                        |
 | `Thread bindings are unavailable for <channel>.`                            | Adapter lacks thread binding capability.                                        | Use `--thread off` or move to supported adapter/channel.                                                                                                          |
 | `Sandboxed sessions cannot spawn ACP sessions ...`                          | ACP runtime is host-side; requester session is sandboxed.                       | Use `runtime="subagent"` from sandboxed sessions, or run ACP spawn from a non-sandboxed session.                                                                  |
-| `sessions_spawn sandbox="require" is unsupported for runtime="acp" ...`     | `sandbox="require"` requested for ACP runtime.                                  | Use `runtime="subagent"` for required sandboxing, or use ACP with `sandbox="inherit"` from a non-sandboxed session.                                               |
+| `sessions__spawn sandbox="require" is unsupported for runtime="acp" ...`    | `sandbox="require"` requested for ACP runtime.                                  | Use `runtime="subagent"` for required sandboxing, or use ACP with `sandbox="inherit"` from a non-sandboxed session.                                               |
 | Missing ACP metadata for bound session                                      | Stale/deleted ACP session metadata.                                             | Recreate with `/acp spawn`, then rebind/focus thread.                                                                                                             |
 | `AcpRuntimeError: Permission prompt unavailable in non-interactive mode`    | `permissionMode` blocks writes/exec in non-interactive ACP session.             | Set `plugins.entries.acpx.config.permissionMode` to `approve-all` and restart gateway. See [Permission configuration](#permission-configuration).                 |
 | ACP session fails early with little output                                  | Permission prompts are blocked by `permissionMode`/`nonInteractivePermissions`. | Check gateway logs for `AcpRuntimeError`. For full permissions, set `permissionMode=approve-all`; for graceful degradation, set `nonInteractivePermissions=deny`. |

@@ -327,7 +327,7 @@ export async function executeCronRun(params: {
         "Your previous response was only an acknowledgement and did not complete this cron task.",
         "Complete the original task now.",
         "Do not send a status update like 'on it'.",
-        "Use tools when needed, including sessions_spawn for parallel subtasks, wait for spawned subagents to finish, then return only the final summary.",
+        "Use tools when needed, including sessions__spawn for parallel subtasks, wait for spawned subagents to finish, then return only the final summary.",
       ].join(" ");
       await executor.runPrompt(continuationPrompt);
       ({ runResult, fallbackProvider, fallbackModel, runEndedAt } = executor.getState());

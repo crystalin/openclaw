@@ -135,29 +135,29 @@ Per-agent override: `agents.list[].tools.profile`.
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `full`      | No restriction (same as unset)                                                                                                                    |
 | `coding`    | `group:fs`, `group:runtime`, `group:web`, `group:sessions`, `group:memory`, `cron`, `image`, `image_generate`, `music_generate`, `video_generate` |
-| `messaging` | `group:messaging`, `sessions_list`, `sessions_history`, `sessions_send`, `session_status`                                                         |
+| `messaging` | `group:messaging`, `sessions__list`, `sessions__history`, `sessions__send`, `session_status`                                                      |
 | `minimal`   | `session_status` only                                                                                                                             |
 
 ### Tool groups
 
 Use `group:*` shorthands in allow/deny lists:
 
-| Group              | Tools                                                                                                     |
-| ------------------ | --------------------------------------------------------------------------------------------------------- |
-| `group:runtime`    | exec, process, code_execution (`bash` is accepted as an alias for `exec`)                                 |
-| `group:fs`         | read, write, edit, apply_patch                                                                            |
-| `group:sessions`   | sessions_list, sessions_history, sessions_send, sessions_spawn, sessions_yield, subagents, session_status |
-| `group:memory`     | memory_search, memory_get                                                                                 |
-| `group:web`        | web_search, x_search, web_fetch                                                                           |
-| `group:ui`         | browser, canvas                                                                                           |
-| `group:automation` | cron, gateway                                                                                             |
-| `group:messaging`  | message                                                                                                   |
-| `group:nodes`      | nodes                                                                                                     |
-| `group:agents`     | agents_list                                                                                               |
-| `group:media`      | image, image_generate, music_generate, video_generate, tts                                                |
-| `group:openclaw`   | All built-in OpenClaw tools (excludes plugin tools)                                                       |
+| Group              | Tools                                                                                                            |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `group:runtime`    | exec, process, code_execution (`bash` is accepted as an alias for `exec`)                                        |
+| `group:fs`         | read, write, edit, apply_patch                                                                                   |
+| `group:sessions`   | sessions**list, sessions**history, sessions**send, sessions**spawn, sessions\_\_yield, subagents, session_status |
+| `group:memory`     | memory_search, memory_get                                                                                        |
+| `group:web`        | web_search, x_search, web_fetch                                                                                  |
+| `group:ui`         | browser, canvas                                                                                                  |
+| `group:automation` | cron, gateway                                                                                                    |
+| `group:messaging`  | message                                                                                                          |
+| `group:nodes`      | nodes                                                                                                            |
+| `group:agents`     | agents_list                                                                                                      |
+| `group:media`      | image, image_generate, music_generate, video_generate, tts                                                       |
+| `group:openclaw`   | All built-in OpenClaw tools (excludes plugin tools)                                                              |
 
-`sessions_history` returns a bounded, safety-filtered recall view. It strips
+`sessions__history` returns a bounded, safety-filtered recall view. It strips
 thinking tags, `<relevant-memories>` scaffolding, plain-text tool-call XML
 payloads (including `<tool_call>...</tool_call>`,
 `<function_call>...</function_call>`, `<tool_calls>...</tool_calls>`,

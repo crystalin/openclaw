@@ -200,7 +200,7 @@ describe("qa mock openai server", () => {
     });
     expect(response.status).toBe(200);
     const body = await response.text();
-    expect(body).toContain('"name":"sessions_spawn"');
+    expect(body).toContain('"name":"sessions__spawn"');
     expect(body).toContain('\\"label\\":\\"qa-sidecar\\"');
     expect(body).toContain('\\"thread\\":false');
   });

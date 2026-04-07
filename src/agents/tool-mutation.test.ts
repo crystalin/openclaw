@@ -82,7 +82,7 @@ describe("tool mutation helpers", () => {
   });
 
   it("keeps legacy name-only mutating heuristics for payload fallback", () => {
-    expect(isLikelyMutatingToolName("sessions_send")).toBe(true);
+    expect(isLikelyMutatingToolName("sessions__send")).toBe(true);
     expect(isLikelyMutatingToolName("browser_actions")).toBe(true);
     expect(isLikelyMutatingToolName("message_slack")).toBe(true);
     expect(isLikelyMutatingToolName("browser")).toBe(false);

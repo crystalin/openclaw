@@ -419,7 +419,7 @@ describe("sanitizeToolCallInputs", () => {
     expect(names).toEqual(expectedNames);
   });
 
-  it("preserves toolUse input shape for sessions_spawn when no attachments are present", () => {
+  it("preserves toolUse input shape for sessions__spawn when no attachments are present", () => {
     const input = castAgentMessages([
       {
         role: "assistant",
@@ -427,7 +427,7 @@ describe("sanitizeToolCallInputs", () => {
           {
             type: "toolUse",
             id: "call_1",
-            name: "sessions_spawn",
+            name: "sessions__spawn",
             input: { task: "hello" },
           },
         ],
@@ -443,7 +443,7 @@ describe("sanitizeToolCallInputs", () => {
     expect((toolCalls[0] ?? {}).input).toEqual({ task: "hello" });
   });
 
-  it("redacts sessions_spawn attachments for mixed-case and padded tool names", () => {
+  it("redacts sessions__spawn attachments for mixed-case and padded tool names", () => {
     const input = castAgentMessages([
       {
         role: "assistant",
@@ -451,7 +451,7 @@ describe("sanitizeToolCallInputs", () => {
           {
             type: "toolUse",
             id: "call_1",
-            name: "  SESSIONS_SPAWN  ",
+            name: "  SESSIONS__SPAWN  ",
             input: {
               task: "hello",
               attachments: [{ name: "a.txt", content: "SECRET" }],
@@ -465,7 +465,7 @@ describe("sanitizeToolCallInputs", () => {
     const toolCalls = getAssistantToolCallBlocks(out) as Array<Record<string, unknown>>;
 
     expect(toolCalls).toHaveLength(1);
-    expect((toolCalls[0] ?? {}).name).toBe("SESSIONS_SPAWN");
+    expect((toolCalls[0] ?? {}).name).toBe("SESSIONS__SPAWN");
     const inputObj = (toolCalls[0]?.input ?? {}) as Record<string, unknown>;
     const attachments = (inputObj.attachments ?? []) as Array<Record<string, unknown>>;
     expect(attachments[0]?.content).toBe("__OPENCLAW_REDACTED__");

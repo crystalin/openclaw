@@ -30,7 +30,7 @@ function readSpawnTimeout(calls: Array<{ method?: string; params?: unknown }>): 
   return params?.timeout;
 }
 
-describe("sessions_spawn default runTimeoutSeconds (config absent)", () => {
+describe("sessions__spawn default runTimeoutSeconds (config absent)", () => {
   beforeEach(() => {
     resetSessionsSpawnConfigOverride();
     resetSubagentRegistryForTests();

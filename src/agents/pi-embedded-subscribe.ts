@@ -272,7 +272,7 @@ export function subscribeEmbeddedPiSession(params: SubscribeEmbeddedPiSessionPar
   // Track texts sent via messaging tools to suppress duplicate block replies.
   // Only committed (successful) texts are checked - pending texts are tracked
   // to support commit logic but not used for suppression (avoiding lost messages on tool failure).
-  // These tools can send messages via sendMessage/threadReply actions (or sessions_send with message).
+  // These tools can send messages via sendMessage/threadReply actions (or sessions__send with message).
   const MAX_MESSAGING_SENT_TEXTS = 200;
   const MAX_MESSAGING_SENT_TARGETS = 200;
   const MAX_MESSAGING_SENT_MEDIA_URLS = 200;

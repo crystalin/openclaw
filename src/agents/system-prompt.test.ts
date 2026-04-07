@@ -333,7 +333,7 @@ describe("buildAgentSystemPrompt", () => {
       "For long-running work that starts now, start it once and rely on automatic completion wake when it is enabled and the command emits output or fails; otherwise use process to confirm completion, and use it for logs, status, input, or intervention.",
     );
     expect(prompt).toContain("Completion is push-based: it will auto-announce when done.");
-    expect(prompt).toContain("Do not poll `subagents list` / `sessions_list` in a loop");
+    expect(prompt).toContain("Do not poll `subagents list` / `sessions__list` in a loop");
     expect(prompt).toContain(
       "When a first-class tool exists for an action, use the tool directly instead of asking the user to run equivalent CLI or slash commands.",
     );
@@ -342,7 +342,7 @@ describe("buildAgentSystemPrompt", () => {
   it("uses structured tool definitions as the source of truth", () => {
     const prompt = buildAgentSystemPrompt({
       workspaceDir: "/tmp/openclaw",
-      toolNames: ["exec", "sessions_list", "sessions_history", "sessions_send"],
+      toolNames: ["exec", "sessions__list", "sessions__history", "sessions__send"],
     });
 
     expect(prompt).toContain(
@@ -355,18 +355,18 @@ describe("buildAgentSystemPrompt", () => {
       "TOOLS.md does not control tool availability; it is user guidance for how to use external tools.",
     );
     expect(prompt).not.toContain("Tool availability (filtered by policy):");
-    expect(prompt).not.toContain("- sessions_list:");
-    expect(prompt).not.toContain("- sessions_history:");
-    expect(prompt).not.toContain("- sessions_send:");
+    expect(prompt).not.toContain("- sessions__list:");
+    expect(prompt).not.toContain("- sessions__history:");
+    expect(prompt).not.toContain("- sessions__send:");
   });
 
-  it("documents ACP sessions_spawn agent targeting requirements", () => {
+  it("documents ACP sessions__spawn agent targeting requirements", () => {
     const prompt = buildAgentSystemPrompt({
       workspaceDir: "/tmp/openclaw",
-      toolNames: ["sessions_spawn"],
+      toolNames: ["sessions__spawn"],
     });
 
-    expect(prompt).toContain("sessions_spawn");
+    expect(prompt).toContain("sessions__spawn");
     expect(prompt).toContain("Set `agentId` explicitly unless `acp.defaultAgent` is configured");
     expect(prompt).toContain("`subagents`/`agents_list`");
   });
@@ -374,7 +374,7 @@ describe("buildAgentSystemPrompt", () => {
   it("guides harness requests to ACP thread-bound spawns", () => {
     const prompt = buildAgentSystemPrompt({
       workspaceDir: "/tmp/openclaw",
-      toolNames: ["sessions_spawn", "subagents", "agents_list", "exec"],
+      toolNames: ["sessions__spawn", "subagents", "agents_list", "exec"],
     });
 
     expect(prompt).toContain(
@@ -387,14 +387,14 @@ describe("buildAgentSystemPrompt", () => {
       "do not route ACP harness requests through `subagents`/`agents_list` or local PTY exec flows",
     );
     expect(prompt).toContain(
-      'do not call `message` with `action=thread-create`; use `sessions_spawn` (`runtime: "acp"`, `thread: true`) as the single thread creation path',
+      'do not call `message` with `action=thread-create`; use `sessions__spawn` (`runtime: "acp"`, `thread: true`) as the single thread creation path',
     );
   });
 
   it("omits ACP harness guidance when ACP is disabled", () => {
     const prompt = buildAgentSystemPrompt({
       workspaceDir: "/tmp/openclaw",
-      toolNames: ["sessions_spawn", "subagents", "agents_list", "exec"],
+      toolNames: ["sessions__spawn", "subagents", "agents_list", "exec"],
       acpEnabled: false,
     });
 
@@ -411,7 +411,7 @@ describe("buildAgentSystemPrompt", () => {
   it("omits ACP harness spawn guidance for sandboxed sessions and shows ACP block note", () => {
     const prompt = buildAgentSystemPrompt({
       workspaceDir: "/tmp/openclaw",
-      toolNames: ["sessions_spawn", "subagents", "agents_list", "exec"],
+      toolNames: ["sessions__spawn", "subagents", "agents_list", "exec"],
       sandboxInfo: {
         enabled: true,
       },
@@ -423,7 +423,7 @@ describe("buildAgentSystemPrompt", () => {
       'For requests like "do this in codex/claude code/gemini", treat it as ACP harness intent',
     );
     expect(prompt).not.toContain(
-      'do not call `message` with `action=thread-create`; use `sessions_spawn` (`runtime: "acp"`, `thread: true`) as the single thread creation path',
+      'do not call `message` with `action=thread-create`; use `sessions__spawn` (`runtime: "acp"`, `thread: true`) as the single thread creation path',
     );
     expect(prompt).toContain("ACP harness spawns are blocked from sandboxed sessions");
     expect(prompt).toContain('`runtime: "acp"`');
@@ -971,9 +971,9 @@ describe("buildSubagentSystemPrompt", () => {
 
     expect(prompt).toContain("## Sub-Agent Spawning");
     expect(prompt).toContain(
-      "You CAN spawn your own sub-agents for parallel or complex work using `sessions_spawn`.",
+      "You CAN spawn your own sub-agents for parallel or complex work using `sessions__spawn`.",
     );
-    expect(prompt).toContain("sessions_spawn");
+    expect(prompt).toContain("sessions__spawn");
     expect(prompt).toContain('runtime: "acp"');
     expect(prompt).toContain("For ACP harness sessions (codex/claudecode/gemini)");
     expect(prompt).toContain("set `agentId` unless `acp.defaultAgent` is configured");
@@ -982,7 +982,7 @@ describe("buildSubagentSystemPrompt", () => {
     expect(prompt).toContain("Use `subagents` only for OpenClaw subagents");
     expect(prompt).toContain("Subagent results auto-announce back to you");
     expect(prompt).toContain(
-      "After spawning children, do NOT call sessions_list, sessions_history, exec sleep, or any polling tool.",
+      "After spawning children, do NOT call sessions__list, sessions__history, exec sleep, or any polling tool.",
     );
     expect(prompt).toContain(
       "Track expected child session keys and only send your final answer after completion events for ALL expected children arrive.",

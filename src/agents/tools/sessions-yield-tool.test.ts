@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { createSessionsYieldTool } from "./sessions-yield-tool.js";
 
-describe("sessions_yield tool", () => {
+describe("sessions__yield tool", () => {
   it("returns error when no sessionId is provided", async () => {
     const onYield = vi.fn();
     const tool = createSessionsYieldTool({ onYield });

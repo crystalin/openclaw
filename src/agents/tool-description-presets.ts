@@ -13,7 +13,7 @@ export const UPDATE_PLAN_TOOL_DISPLAY_SUMMARY = "Track a short structured work p
 export function describeSessionsListTool(): string {
   return [
     "List visible sessions with optional filters for kind, recent activity, and last messages.",
-    "Use this to discover a target session before calling sessions_history or sessions_send.",
+    "Use this to discover a target session before calling sessions__history or sessions__send.",
   ].join(" ");
 }
 

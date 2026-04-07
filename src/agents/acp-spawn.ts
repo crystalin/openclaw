@@ -160,7 +160,7 @@ export function resolveAcpSpawnRuntimePolicyError(params: {
     return 'Sandboxed sessions cannot spawn ACP sessions because runtime="acp" runs on the host. Use runtime="subagent" from sandboxed sessions.';
   }
   if (sandboxMode === "require") {
-    return 'sessions_spawn sandbox="require" is unsupported for runtime="acp" because ACP sessions run outside the sandbox. Use runtime="subagent" or sandbox="inherit".';
+    return 'sessions__spawn sandbox="require" is unsupported for runtime="acp" because ACP sessions run outside the sandbox. Use runtime="subagent" or sandbox="inherit".';
   }
   return undefined;
 }
@@ -382,7 +382,7 @@ function resolveTargetAcpAgentId(params: {
   return {
     ok: false,
     error:
-      "ACP target agent is not configured. Pass `agentId` in `sessions_spawn` or set `acp.defaultAgent` in config.",
+      "ACP target agent is not configured. Pass `agentId` in `sessions__spawn` or set `acp.defaultAgent` in config.",
   };
 }
 
@@ -937,7 +937,7 @@ export async function spawnAcpDirect(
     return createAcpSpawnFailure({
       status: "error",
       errorCode: "requester_session_required",
-      error: 'sessions_spawn streamTo="parent" requires an active requester session context.',
+      error: 'sessions__spawn streamTo="parent" requires an active requester session context.',
     });
   }
 

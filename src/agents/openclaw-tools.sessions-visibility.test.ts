@@ -48,7 +48,7 @@ describe("sessions tools visibility", () => {
     callGatewayMock.mockClear();
   });
 
-  it("defaults to tree visibility (self + spawned) for sessions_history", async () => {
+  it("defaults to tree visibility (self + spawned) for sessions__history", async () => {
     mockConfig = {
       session: { mainKey: "main", scope: "per-sender" },
       tools: { agentToAgent: { enabled: false } },

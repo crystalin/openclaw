@@ -14,23 +14,23 @@ orchestrate sub-agents.
 
 ## Available tools
 
-| Tool               | What it does                                                                |
-| ------------------ | --------------------------------------------------------------------------- |
-| `sessions_list`    | List sessions with optional filters (kind, recency)                         |
-| `sessions_history` | Read the transcript of a specific session                                   |
-| `sessions_send`    | Send a message to another session and optionally wait                       |
-| `sessions_spawn`   | Spawn an isolated sub-agent session for background work                     |
-| `sessions_yield`   | End the current turn and wait for follow-up sub-agent results               |
-| `subagents`        | List, steer, or kill spawned sub-agents for this session                    |
-| `session_status`   | Show a `/status`-style card and optionally set a per-session model override |
+| Tool                | What it does                                                                |
+| ------------------- | --------------------------------------------------------------------------- |
+| `sessions__list`    | List sessions with optional filters (kind, recency)                         |
+| `sessions__history` | Read the transcript of a specific session                                   |
+| `sessions__send`    | Send a message to another session and optionally wait                       |
+| `sessions__spawn`   | Spawn an isolated sub-agent session for background work                     |
+| `sessions__yield`   | End the current turn and wait for follow-up sub-agent results               |
+| `subagents`         | List, steer, or kill spawned sub-agents for this session                    |
+| `session_status`    | Show a `/status`-style card and optionally set a per-session model override |
 
 ## Listing and reading sessions
 
-`sessions_list` returns sessions with their key, kind, channel, model, token
+`sessions__list` returns sessions with their key, kind, channel, model, token
 counts, and timestamps. Filter by kind (`main`, `group`, `cron`, `hook`,
 `node`) or recency (`activeMinutes`).
 
-`sessions_history` fetches the conversation transcript for a specific session.
+`sessions__history` fetches the conversation transcript for a specific session.
 By default, tool results are excluded -- pass `includeTools: true` to see them.
 The returned view is intentionally bounded and safety-filtered:
 
@@ -50,7 +50,7 @@ The returned view is intentionally bounded and safety-filtered:
 - credential/token-like text is redacted before it is returned
 - long text blocks are truncated
 - very large histories can drop older rows or replace an oversized row with
-  `[sessions_history omitted: message too large]`
+  `[sessions__history omitted: message too large]`
 - the tool reports summary flags such as `truncated`, `droppedMessages`,
   `contentTruncated`, `contentRedacted`, and `bytes`
 
@@ -58,11 +58,11 @@ Both tools accept either a **session key** (like `"main"`) or a **session ID**
 from a previous list call.
 
 If you need the exact byte-for-byte transcript, inspect the transcript file on
-disk instead of treating `sessions_history` as a raw dump.
+disk instead of treating `sessions__history` as a raw dump.
 
 ## Sending cross-session messages
 
-`sessions_send` delivers a message to another session and optionally waits for
+`sessions__send` delivers a message to another session and optionally waits for
 the response:
 
 - **Fire-and-forget:** set `timeoutSeconds: 0` to enqueue and return
@@ -81,7 +81,7 @@ linked background-task context when present. Like `/status`, it can backfill
 sparse token/cache counters from the latest transcript usage entry, and
 `model=default` clears a per-session override.
 
-`sessions_yield` intentionally ends the current turn so the next message can be
+`sessions__yield` intentionally ends the current turn so the next message can be
 the follow-up event you are waiting for. Use it after spawning sub-agents when
 you want completion results to arrive as the next message instead of building
 poll loops.
@@ -95,7 +95,7 @@ sub-agents. It supports:
 
 ## Spawning sub-agents
 
-`sessions_spawn` creates an isolated session for a background task. It is always
+`sessions__spawn` creates an isolated session for a background task. It is always
 non-blocking -- it returns immediately with a `runId` and `childSessionKey`.
 
 Key options:
@@ -107,7 +107,7 @@ Key options:
 
 Default leaf sub-agents do not get session tools. When
 `maxSpawnDepth >= 2`, depth-1 orchestrator sub-agents additionally receive
-`sessions_spawn`, `subagents`, `sessions_list`, and `sessions_history` so they
+`sessions__spawn`, `subagents`, `sessions__list`, and `sessions__history` so they
 can manage their own children. Leaf runs still do not get recursive
 orchestration tools.
 

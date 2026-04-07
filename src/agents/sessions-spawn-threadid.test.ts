@@ -10,7 +10,7 @@ import {
   resetSubagentRegistryForTests,
 } from "./subagent-registry.js";
 
-describe("sessions_spawn requesterOrigin threading", () => {
+describe("sessions__spawn requesterOrigin threading", () => {
   const spawnAndReadRequesterRun = async (opts?: { agentThreadId?: number }) => {
     const tool = await getSessionsSpawnTool({
       agentSessionKey: "main",

@@ -1,13 +1,13 @@
 import type { AgentMessage } from "@mariozechner/pi-agent-core";
 import { log } from "../logger.js";
 
-const SESSIONS_YIELD_INTERRUPT_CUSTOM_TYPE = "openclaw.sessions_yield_interrupt";
-const SESSIONS_YIELD_CONTEXT_CUSTOM_TYPE = "openclaw.sessions_yield";
+const SESSIONS_YIELD_INTERRUPT_CUSTOM_TYPE = "openclaw.sessions__yield_interrupt";
+const SESSIONS_YIELD_CONTEXT_CUSTOM_TYPE = "openclaw.sessions__yield";
 const SESSIONS_YIELD_ABORT_SETTLE_TIMEOUT_MS = process.env.OPENCLAW_TEST_FAST === "1" ? 250 : 2_000;
 
 // Persist a hidden context reminder so the next turn knows why the runner stopped.
 export function buildSessionsYieldContextMessage(message: string): string {
-  return `${message}\n\n[Context: The previous turn ended intentionally via sessions_yield while waiting for a follow-up event.]`;
+  return `${message}\n\n[Context: The previous turn ended intentionally via sessions__yield while waiting for a follow-up event.]`;
 }
 
 export async function waitForSessionsYieldAbortSettle(params: {
@@ -25,7 +25,7 @@ export async function waitForSessionsYieldAbortSettle(params: {
       .then(() => "settled" as const)
       .catch((err) => {
         log.warn(
-          `sessions_yield abort settle failed: runId=${params.runId} sessionId=${params.sessionId} err=${String(err)}`,
+          `sessions__yield abort settle failed: runId=${params.runId} sessionId=${params.sessionId} err=${String(err)}`,
         );
         return "errored" as const;
       }),
@@ -38,7 +38,7 @@ export async function waitForSessionsYieldAbortSettle(params: {
   }
   if (outcome === "timed_out") {
     log.warn(
-      `sessions_yield abort settle timed out: runId=${params.runId} sessionId=${params.sessionId} timeoutMs=${SESSIONS_YIELD_ABORT_SETTLE_TIMEOUT_MS}`,
+      `sessions__yield abort settle timed out: runId=${params.runId} sessionId=${params.sessionId} timeoutMs=${SESSIONS_YIELD_ABORT_SETTLE_TIMEOUT_MS}`,
     );
   }
 }
@@ -111,9 +111,9 @@ export function queueSessionsYieldInterruptMessage(activeSession: {
   activeSession.agent.steer({
     role: "custom",
     customType: SESSIONS_YIELD_INTERRUPT_CUSTOM_TYPE,
-    content: "[sessions_yield interrupt]",
+    content: "[sessions__yield interrupt]",
     display: false,
-    details: { source: "sessions_yield" },
+    details: { source: "sessions__yield" },
     timestamp: Date.now(),
   });
 }
@@ -138,7 +138,7 @@ export async function persistSessionsYieldContextMessage(
       customType: SESSIONS_YIELD_CONTEXT_CUSTOM_TYPE,
       content: buildSessionsYieldContextMessage(message),
       display: false,
-      details: { source: "sessions_yield", message },
+      details: { source: "sessions__yield", message },
     },
     { triggerTurn: false },
   );

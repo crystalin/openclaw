@@ -42,7 +42,7 @@ export async function runAgentStep(params: {
         kind: "inter_session",
         sourceSessionKey: params.sourceSessionKey,
         sourceChannel: params.sourceChannel,
-        sourceTool: params.sourceTool ?? "sessions_send",
+        sourceTool: params.sourceTool ?? "sessions__send",
       },
     },
     timeoutMs: 10_000,

@@ -152,7 +152,7 @@ Use this baseline first, then selectively re-enable tools per trusted agent:
   },
   tools: {
     profile: "messaging",
-    deny: ["group:automation", "group:runtime", "group:fs", "sessions_spawn", "sessions_send"],
+    deny: ["group:automation", "group:runtime", "group:fs", "sessions__spawn", "sessions__send"],
     fs: { workspaceOnly: true },
     exec: { security: "deny", ask: "always" },
     elevated: { enabled: false },
@@ -554,7 +554,7 @@ For any agent/surface that handles untrusted content, deny these by default:
 ```json5
 {
   tools: {
-    deny: ["gateway", "cron", "sessions_spawn", "sessions_send"],
+    deny: ["gateway", "cron", "sessions__spawn", "sessions__send"],
   },
 }
 ```
@@ -1125,9 +1125,9 @@ Important: `tools.elevated` is the global baseline escape hatch that runs exec o
 
 If you allow session tools, treat delegated sub-agent runs as another boundary decision:
 
-- Deny `sessions_spawn` unless the agent truly needs delegation.
+- Deny `sessions__spawn` unless the agent truly needs delegation.
 - Keep `agents.defaults.subagents.allowAgents` and any per-agent `agents.list[].subagents.allowAgents` overrides restricted to known-safe target agents.
-- For any workflow that must remain sandboxed, call `sessions_spawn` with `sandbox: "require"` (default is `inherit`).
+- For any workflow that must remain sandboxed, call `sessions__spawn` with `sandbox: "require"` (default is `inherit`).
 - `sandbox: "require"` fails fast when the target child runtime is not sandboxed.
 
 ## Browser control risks
@@ -1246,10 +1246,10 @@ Common use cases:
         tools: {
           sessions: { visibility: "tree" }, // self | tree | agent | all
           allow: [
-            "sessions_list",
-            "sessions_history",
-            "sessions_send",
-            "sessions_spawn",
+            "sessions__list",
+            "sessions__history",
+            "sessions__send",
+            "sessions__spawn",
             "session_status",
             "whatsapp",
             "telegram",

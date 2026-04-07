@@ -29,9 +29,9 @@ function getSessionsSendTool(): SessionSendTool {
   if (cachedSessionsSendTool) {
     return cachedSessionsSendTool;
   }
-  const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions_send");
+  const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions__send");
   if (!tool) {
-    throw new Error("missing sessions_send tool");
+    throw new Error("missing sessions__send tool");
   }
   cachedSessionsSendTool = tool;
   return cachedSessionsSendTool;
@@ -111,7 +111,7 @@ afterAll(async () => {
   envSnapshot.restore();
 });
 
-describe("sessions_send gateway loopback", () => {
+describe("sessions__send gateway loopback", () => {
   it("returns reply when lifecycle ends before agent.wait", async () => {
     const spy = agentCommand as unknown as Mock<(opts: unknown) => Promise<void>>;
     spy.mockImplementation(async (opts: unknown) =>
@@ -153,12 +153,12 @@ describe("sessions_send gateway loopback", () => {
     expect(firstCall?.lane).toBe("nested");
     expect(firstCall?.inputProvenance).toMatchObject({
       kind: "inter_session",
-      sourceTool: "sessions_send",
+      sourceTool: "sessions__send",
     });
   });
 });
 
-describe("sessions_send label lookup", () => {
+describe("sessions__send label lookup", () => {
   it(
     "finds session by label and sends message",
     { timeout: SESSION_SEND_E2E_TIMEOUT_MS },
@@ -200,9 +200,9 @@ describe("sessions_send label lookup", () => {
             },
           },
         },
-      }).find((candidate) => candidate.name === "sessions_send");
+      }).find((candidate) => candidate.name === "sessions__send");
       if (!tool) {
-        throw new Error("missing sessions_send tool");
+        throw new Error("missing sessions__send tool");
       }
 
       // Send using label instead of sessionKey

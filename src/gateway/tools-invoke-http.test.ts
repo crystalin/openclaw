@@ -94,7 +94,7 @@ vi.mock("../agents/openclaw-tools.js", () => {
       execute: async () => ({ ok: true, result: [] }),
     },
     {
-      name: "sessions_spawn",
+      name: "sessions__spawn",
       parameters: { type: "object", properties: {} },
       execute: async () => ({
         ok: true,
@@ -105,7 +105,7 @@ vi.mock("../agents/openclaw-tools.js", () => {
       }),
     },
     {
-      name: "sessions_send",
+      name: "sessions__send",
       parameters: { type: "object", properties: {} },
       execute: async () => ({ ok: true }),
     },
@@ -560,7 +560,7 @@ describe("POST /tools/invoke", () => {
     expect(profileRes.status).toBe(404);
   });
 
-  it("denies sessions_spawn via HTTP even when agent policy allows", async () => {
+  it("denies sessions__spawn via HTTP even when agent policy allows", async () => {
     cfg = {
       ...cfg,
       agents: {
@@ -568,14 +568,14 @@ describe("POST /tools/invoke", () => {
           {
             id: "main",
             default: true,
-            tools: { allow: ["sessions_spawn"] },
+            tools: { allow: ["sessions__spawn"] },
           },
         ],
       },
     };
 
     const res = await invokeToolAuthed({
-      tool: "sessions_spawn",
+      tool: "sessions__spawn",
       args: { task: "test" },
       sessionKey: "main",
     });
@@ -586,13 +586,13 @@ describe("POST /tools/invoke", () => {
     expect(body.error.type).toBe("not_found");
   });
 
-  it("propagates message target/thread headers into tools context for sessions_spawn", async () => {
+  it("propagates message target/thread headers into tools context for sessions__spawn", async () => {
     cfg = {
       ...cfg,
       agents: {
-        list: [{ id: "main", default: true, tools: { allow: ["sessions_spawn"] } }],
+        list: [{ id: "main", default: true, tools: { allow: ["sessions__spawn"] } }],
       },
-      gateway: { tools: { allow: ["sessions_spawn"] } },
+      gateway: { tools: { allow: ["sessions__spawn"] } },
     };
 
     const res = await invokeTool({
@@ -602,7 +602,7 @@ describe("POST /tools/invoke", () => {
         "x-openclaw-message-to": "channel:24514",
         "x-openclaw-thread-id": "thread-24514",
       },
-      tool: "sessions_spawn",
+      tool: "sessions__spawn",
       sessionKey: "main",
     });
 
@@ -613,11 +613,11 @@ describe("POST /tools/invoke", () => {
     });
   });
 
-  it("denies sessions_send via HTTP gateway", async () => {
-    setMainAllowedTools({ allow: ["sessions_send"] });
+  it("denies sessions__send via HTTP gateway", async () => {
+    setMainAllowedTools({ allow: ["sessions__send"] });
 
     const res = await invokeToolAuthed({
-      tool: "sessions_send",
+      tool: "sessions__send",
       sessionKey: "main",
     });
 

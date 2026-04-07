@@ -93,7 +93,7 @@ export async function runSessionsSendA2AFlow(params: {
           sourceSessionKey: nextSessionKey,
           sourceChannel:
             nextSessionKey === params.requesterSessionKey ? params.requesterChannel : targetChannel,
-          sourceTool: "sessions_send",
+          sourceTool: "sessions__send",
         });
         if (!replyText || isReplySkip(replyText)) {
           break;
@@ -123,7 +123,7 @@ export async function runSessionsSendA2AFlow(params: {
       lane: AGENT_LANE_NESTED,
       sourceSessionKey: params.requesterSessionKey,
       sourceChannel: params.requesterChannel,
-      sourceTool: "sessions_send",
+      sourceTool: "sessions__send",
     });
     if (announceTarget && announceReply && announceReply.trim() && !isAnnounceSkip(announceReply)) {
       try {
@@ -139,7 +139,7 @@ export async function runSessionsSendA2AFlow(params: {
           timeoutMs: 10_000,
         });
       } catch (err) {
-        log.warn("sessions_send announce delivery failed", {
+        log.warn("sessions__send announce delivery failed", {
           runId: runContextId,
           channel: announceTarget.channel,
           to: announceTarget.to,
@@ -148,7 +148,7 @@ export async function runSessionsSendA2AFlow(params: {
       }
     }
   } catch (err) {
-    log.warn("sessions_send announce flow failed", {
+    log.warn("sessions__send announce flow failed", {
       runId: runContextId,
       error: formatErrorMessage(err),
     });

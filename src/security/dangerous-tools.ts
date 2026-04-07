@@ -22,9 +22,9 @@ export const DEFAULT_GATEWAY_HTTP_TOOL_DENY = [
   // Patch application can rewrite arbitrary files
   "apply_patch",
   // Session orchestration — spawning agents remotely is RCE
-  "sessions_spawn",
+  "sessions__spawn",
   // Cross-session injection — message injection across sessions
-  "sessions_send",
+  "sessions__send",
   // Persistent automation control plane — can create/update/remove scheduled runs
   "cron",
   // Gateway control plane — prevents gateway reconfiguration via HTTP

@@ -967,7 +967,7 @@ describe("wrapStreamFnSanitizeMalformedToolCalls", () => {
     expect(seenContext.messages).toBe(messages);
   });
 
-  it("preserves sessions_spawn attachment payloads on replay", async () => {
+  it("preserves sessions__spawn attachment payloads on replay", async () => {
     const attachmentContent = "INLINE_ATTACHMENT_PAYLOAD";
     const messages = [
       {
@@ -976,7 +976,7 @@ describe("wrapStreamFnSanitizeMalformedToolCalls", () => {
           {
             type: "toolUse",
             id: "call_1",
-            name: "  SESSIONS_SPAWN  ",
+            name: "  SESSIONS__SPAWN  ",
             input: {
               task: "inspect attachment",
               attachments: [{ name: "snapshot.txt", content: attachmentContent }],
@@ -991,7 +991,7 @@ describe("wrapStreamFnSanitizeMalformedToolCalls", () => {
 
     const wrapped = wrapStreamFnSanitizeMalformedToolCalls(
       baseFn as never,
-      new Set(["sessions_spawn"]),
+      new Set(["sessions__spawn"]),
     );
     const stream = wrapped({} as never, { messages } as never, {} as never) as
       | FakeWrappedStream
@@ -1006,7 +1006,7 @@ describe("wrapStreamFnSanitizeMalformedToolCalls", () => {
       name?: string;
       input?: { attachments?: Array<{ content?: string }> };
     };
-    expect(toolCall.name).toBe("sessions_spawn");
+    expect(toolCall.name).toBe("sessions__spawn");
     expect(toolCall.input?.attachments?.[0]?.content).toBe(attachmentContent);
   });
 

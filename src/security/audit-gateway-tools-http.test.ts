@@ -20,7 +20,7 @@ describe("security audit gateway HTTP tool findings", () => {
         gateway: {
           bind: "loopback",
           auth: { token: "secret" },
-          tools: { allow: ["sessions_spawn"] },
+          tools: { allow: ["sessions__spawn"] },
         },
       } satisfies OpenClawConfig,
       expectedSeverity: "warn" as const,
@@ -31,7 +31,7 @@ describe("security audit gateway HTTP tool findings", () => {
         gateway: {
           bind: "lan",
           auth: { token: "secret" },
-          tools: { allow: ["sessions_spawn", "gateway"] },
+          tools: { allow: ["sessions__spawn", "gateway"] },
         },
       } satisfies OpenClawConfig,
       expectedSeverity: "critical" as const,
