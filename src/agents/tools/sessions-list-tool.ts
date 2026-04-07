@@ -56,7 +56,7 @@ export function createSessionsListTool(opts?: {
 }): AnyAgentTool {
   return {
     label: "Sessions",
-    name: "sessions_list",
+    name: "sessions__list",
     displaySummary: SESSIONS_LIST_TOOL_DISPLAY_SUMMARY,
     description: describeSessionsListTool(),
     parameters: SessionsListToolSchema,

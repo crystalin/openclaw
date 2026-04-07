@@ -68,7 +68,7 @@ Auth matrix:
 
 ```json
 {
-  "tool": "sessions_list",
+  "tool": "sessions__list",
   "action": "json",
   "args": {},
   "sessionKey": "main",
@@ -110,8 +110,8 @@ Gateway HTTP also applies a hard deny list by default (even if session policy al
 - `fs_delete` — arbitrary file deletion on the host
 - `fs_move` — arbitrary file move/rename on the host
 - `apply_patch` — patch application can rewrite arbitrary files
-- `sessions_spawn` — session orchestration; spawning agents remotely is RCE
-- `sessions_send` — cross-session message injection
+- `sessions__spawn` — session orchestration; spawning agents remotely is RCE
+- `sessions__send` — cross-session message injection
 - `cron` — persistent automation control plane
 - `gateway` — gateway control plane; prevents reconfiguration via HTTP
 - `nodes` — node command relay can reach system.run on paired hosts
@@ -154,7 +154,7 @@ curl -sS http://127.0.0.1:18789/tools/invoke \
   -H 'Authorization: Bearer secret' \
   -H 'Content-Type: application/json' \
   -d '{
-    "tool": "sessions_list",
+    "tool": "sessions__list",
     "action": "json",
     "args": {}
   }'

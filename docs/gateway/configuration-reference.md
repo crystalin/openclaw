@@ -276,7 +276,7 @@ WhatsApp runs through the gateway's web channel (Baileys Web). It starts automat
         enabled: true,
         idleHours: 24,
         maxAgeHours: 0,
-        spawnSubagentSessions: false, // opt-in for sessions_spawn({ thread: true })
+        spawnSubagentSessions: false, // opt-in for sessions__spawn({ thread: true })
       },
       voice: {
         enabled: true,
@@ -324,7 +324,7 @@ WhatsApp runs through the gateway's web channel (Baileys Web). It starts automat
   - `enabled`: Discord override for thread-bound session features (`/focus`, `/unfocus`, `/agents`, `/session idle`, `/session max-age`, and bound delivery/routing)
   - `idleHours`: Discord override for inactivity auto-unfocus in hours (`0` disables)
   - `maxAgeHours`: Discord override for hard max age in hours (`0` disables)
-  - `spawnSubagentSessions`: opt-in switch for `sessions_spawn({ thread: true })` auto thread creation/binding
+  - `spawnSubagentSessions`: opt-in switch for `sessions__spawn({ thread: true })` auto thread creation/binding
 - Top-level `bindings[]` entries with `type: "acp"` configure persistent ACP bindings for channels and threads (use channel/thread id in `match.peer.id`). Field semantics are shared in [ACP Agents](/tools/acp-agents#channel-specific-settings).
 - `channels.discord.ui.components.accentColor` sets the accent color for Discord components v2 containers.
 - `channels.discord.voice` enables Discord voice channel conversations and optional auto-join + TTS overrides.
@@ -1358,10 +1358,10 @@ Optional sandboxing for the embedded agent. See [Sandboxing](/gateway/sandboxing
           "write",
           "edit",
           "apply_patch",
-          "sessions_list",
-          "sessions_history",
-          "sessions_send",
-          "sessions_spawn",
+          "sessions__list",
+          "sessions__history",
+          "sessions__send",
+          "sessions__spawn",
           "session_status",
         ],
         deny: ["browser", "canvas", "nodes", "cron", "discord", "gateway"],
@@ -1569,9 +1569,9 @@ scripts/sandbox-browser-setup.sh   # optional browser image
 - `runtime`: optional per-agent runtime descriptor. Use `type: "acp"` with `runtime.acp` defaults (`agent`, `backend`, `mode`, `cwd`) when the agent should default to ACP harness sessions.
 - `identity.avatar`: workspace-relative path, `http(s)` URL, or `data:` URI.
 - `identity` derives defaults: `ackReaction` from `emoji`, `mentionPatterns` from `name`/`emoji`.
-- `subagents.allowAgents`: allowlist of agent ids for `sessions_spawn` (`["*"]` = any; default: same agent only).
-- Sandbox inheritance guard: if the requester session is sandboxed, `sessions_spawn` rejects targets that would run unsandboxed.
-- `subagents.requireAgentId`: when true, block `sessions_spawn` calls that omit `agentId` (forces explicit profile selection; default: false).
+- `subagents.allowAgents`: allowlist of agent ids for `sessions__spawn` (`["*"]` = any; default: same agent only).
+- Sandbox inheritance guard: if the requester session is sandboxed, `sessions__spawn` rejects targets that would run unsandboxed.
+- `subagents.requireAgentId`: when true, block `sessions__spawn` calls that omit `agentId` (forces explicit profile selection; default: false).
 
 ---
 
@@ -1649,10 +1649,10 @@ For `type: "acp"` entries, OpenClaw resolves by exact conversation identity (`ma
         tools: {
           allow: [
             "read",
-            "sessions_list",
-            "sessions_history",
-            "sessions_send",
-            "sessions_spawn",
+            "sessions__list",
+            "sessions__history",
+            "sessions__send",
+            "sessions__spawn",
             "session_status",
           ],
           deny: ["write", "edit", "apply_patch", "exec", "process", "browser"],
@@ -1677,10 +1677,10 @@ For `type: "acp"` entries, OpenClaw resolves by exact conversation identity (`ma
         sandbox: { mode: "all", scope: "agent", workspaceAccess: "none" },
         tools: {
           allow: [
-            "sessions_list",
-            "sessions_history",
-            "sessions_send",
-            "sessions_spawn",
+            "sessions__list",
+            "sessions__history",
+            "sessions__send",
+            "sessions__spawn",
             "session_status",
             "whatsapp",
             "telegram",
@@ -1959,25 +1959,25 @@ Local onboarding defaults new local configs to `tools.profile: "coding"` when un
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | `minimal`   | `session_status` only                                                                                                           |
 | `coding`    | `group:fs`, `group:runtime`, `group:web`, `group:sessions`, `group:memory`, `cron`, `image`, `image_generate`, `video_generate` |
-| `messaging` | `group:messaging`, `sessions_list`, `sessions_history`, `sessions_send`, `session_status`                                       |
+| `messaging` | `group:messaging`, `sessions__list`, `sessions__history`, `sessions__send`, `session_status`                                    |
 | `full`      | No restriction (same as unset)                                                                                                  |
 
 ### Tool groups
 
-| Group              | Tools                                                                                                                   |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `group:runtime`    | `exec`, `process`, `code_execution` (`bash` is accepted as an alias for `exec`)                                         |
-| `group:fs`         | `read`, `write`, `edit`, `apply_patch`                                                                                  |
-| `group:sessions`   | `sessions_list`, `sessions_history`, `sessions_send`, `sessions_spawn`, `sessions_yield`, `subagents`, `session_status` |
-| `group:memory`     | `memory_search`, `memory_get`                                                                                           |
-| `group:web`        | `web_search`, `x_search`, `web_fetch`                                                                                   |
-| `group:ui`         | `browser`, `canvas`                                                                                                     |
-| `group:automation` | `cron`, `gateway`                                                                                                       |
-| `group:messaging`  | `message`                                                                                                               |
-| `group:nodes`      | `nodes`                                                                                                                 |
-| `group:agents`     | `agents_list`                                                                                                           |
-| `group:media`      | `image`, `image_generate`, `video_generate`, `tts`                                                                      |
-| `group:openclaw`   | All built-in tools (excludes provider plugins)                                                                          |
+| Group              | Tools                                                                                                                        |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `group:runtime`    | `exec`, `process`, `code_execution` (`bash` is accepted as an alias for `exec`)                                              |
+| `group:fs`         | `read`, `write`, `edit`, `apply_patch`                                                                                       |
+| `group:sessions`   | `sessions__list`, `sessions__history`, `sessions__send`, `sessions__spawn`, `sessions__yield`, `subagents`, `session_status` |
+| `group:memory`     | `memory_search`, `memory_get`                                                                                                |
+| `group:web`        | `web_search`, `x_search`, `web_fetch`                                                                                        |
+| `group:ui`         | `browser`, `canvas`                                                                                                          |
+| `group:automation` | `cron`, `gateway`                                                                                                            |
+| `group:messaging`  | `message`                                                                                                                    |
+| `group:nodes`      | `nodes`                                                                                                                      |
+| `group:agents`     | `agents_list`                                                                                                                |
+| `group:media`      | `image`, `image_generate`, `video_generate`, `tts`                                                                           |
+| `group:openclaw`   | All built-in tools (excludes provider plugins)                                                                               |
 
 ### `tools.allow` / `tools.deny`
 
@@ -1999,7 +1999,7 @@ Further restrict tools for specific providers or models. Order: base profile →
     profile: "coding",
     byProvider: {
       "google-antigravity": { profile: "minimal" },
-      "openai/gpt-5.4": { allow: ["group:fs", "sessions_list"] },
+      "openai/gpt-5.4": { allow: ["group:fs", "sessions__list"] },
     },
   },
 }
@@ -2188,7 +2188,7 @@ Provider auth follows standard order: `auth-profiles.json` → env vars → `mod
 
 ### `tools.sessions`
 
-Controls which sessions can be targeted by the session tools (`sessions_list`, `sessions_history`, `sessions_send`).
+Controls which sessions can be targeted by the session tools (`sessions__list`, `sessions__history`, `sessions__send`).
 
 Default: `tree` (current session + sessions spawned by it, such as subagents).
 
@@ -2211,14 +2211,14 @@ Notes:
 - `all`: any session. Cross-agent targeting still requires `tools.agentToAgent`.
 - Sandbox clamp: when the current session is sandboxed and `agents.defaults.sandbox.sessionToolsVisibility="spawned"`, visibility is forced to `tree` even if `tools.sessions.visibility="all"`.
 
-### `tools.sessions_spawn`
+### `tools.sessions__spawn`
 
-Controls inline attachment support for `sessions_spawn`.
+Controls inline attachment support for `sessions__spawn`.
 
 ```json5
 {
   tools: {
-    sessions_spawn: {
+    sessions__spawn: {
       attachments: {
         enabled: false, // opt-in: set true to allow inline file attachments
         maxTotalBytes: 5242880, // 5 MB total across all files
@@ -2279,8 +2279,8 @@ Notes:
 ```
 
 - `model`: default model for spawned sub-agents. If omitted, sub-agents inherit the caller's model.
-- `allowAgents`: default allowlist of target agent ids for `sessions_spawn` when the requester agent does not set its own `subagents.allowAgents` (`["*"]` = any; default: same agent only).
-- `runTimeoutSeconds`: default timeout (seconds) for `sessions_spawn` when the tool call omits `runTimeoutSeconds`. `0` means no timeout.
+- `allowAgents`: default allowlist of target agent ids for `sessions__spawn` when the requester agent does not set its own `subagents.allowAgents` (`["*"]` = any; default: same agent only).
+- `runTimeoutSeconds`: default timeout (seconds) for `sessions__spawn` when the tool call omits `runTimeoutSeconds`. `0` means no timeout.
 - Per-subagent tool policy: `tools.subagents.tools.allow` / `tools.subagents.tools.deny`.
 
 ---

@@ -354,7 +354,7 @@ vi.mock("../../cache-trace.js", () => ({
 vi.mock("../../pi-tools.js", () => ({
   createOpenClawCodingTools: (options?: { workspaceDir?: string; spawnWorkspaceDir?: string }) => [
     {
-      name: "sessions_spawn",
+      name: "sessions__spawn",
       execute: async (
         _callId: string,
         input: { task?: string },

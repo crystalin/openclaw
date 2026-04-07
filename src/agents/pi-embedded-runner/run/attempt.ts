@@ -450,7 +450,7 @@ export async function runEmbeddedAttempt(
       config: params.config,
       sessionAgentId,
     });
-    // Track sessions_yield tool invocation (callback pattern, like clientToolCallDetected)
+    // Track sessions__yield tool invocation (callback pattern, like clientToolCallDetected)
     let yieldDetected = false;
     let yieldMessage: string | null = null;
     // Late-binding reference so onYield can abort the session (declared after tool creation)
@@ -516,7 +516,7 @@ export async function runEmbeddedAttempt(
               yieldDetected = true;
               yieldMessage = message;
               queueYieldInterruptForSession?.();
-              runAbortController.abort("sessions_yield");
+              runAbortController.abort("sessions__yield");
               abortSessionForYield?.();
             },
           });
@@ -1152,7 +1152,7 @@ export async function runEmbeddedAttempt(
       const innerStreamFn = activeSession.agent.streamFn;
       activeSession.agent.streamFn = (model, context, options) => {
         const signal = runAbortController.signal as AbortSignal & { reason?: unknown };
-        if (yieldDetected && signal.aborted && signal.reason === "sessions_yield") {
+        if (yieldDetected && signal.aborted && signal.reason === "sessions__yield") {
           return createYieldAbortedResponse(model) as unknown as Awaited<
             ReturnType<typeof innerStreamFn>
           >;
@@ -1881,7 +1881,7 @@ export async function runEmbeddedAttempt(
             yieldDetected &&
             isRunnerAbortError(err) &&
             err instanceof Error &&
-            err.cause === "sessions_yield";
+            err.cause === "sessions__yield";
           if (yieldAborted) {
             aborted = false;
             // Ensure the session abort has mostly settled before proceeding, but

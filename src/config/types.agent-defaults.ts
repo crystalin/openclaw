@@ -305,13 +305,13 @@ export type AgentDefaultsConfig = {
   };
   /** Max concurrent agent runs across all conversations. Default: 1 (sequential). */
   maxConcurrent?: number;
-  /** Sub-agent defaults (spawned via sessions_spawn). */
+  /** Sub-agent defaults (spawned via sessions__spawn). */
   subagents?: {
-    /** Default allowlist of target agent ids for sessions_spawn. Use "*" to allow any. */
+    /** Default allowlist of target agent ids for sessions__spawn. Use "*" to allow any. */
     allowAgents?: string[];
     /** Max concurrent sub-agent runs (global lane: "subagent"). Default: 1. */
     maxConcurrent?: number;
-    /** Maximum depth allowed for sessions_spawn chains. Default behavior: 1 (no nested spawns). */
+    /** Maximum depth allowed for sessions__spawn chains. Default behavior: 1 (no nested spawns). */
     maxSpawnDepth?: number;
     /** Maximum active children a single requester session may spawn. Default behavior: 5. */
     maxChildrenPerAgent?: number;
@@ -325,7 +325,7 @@ export type AgentDefaultsConfig = {
     runTimeoutSeconds?: number;
     /** Gateway timeout in ms for sub-agent announce delivery calls (default: 90000). */
     announceTimeoutMs?: number;
-    /** Require explicit agentId in sessions_spawn (no default same-as-caller). Default: false. */
+    /** Require explicit agentId in sessions__spawn (no default same-as-caller). Default: false. */
     requireAgentId?: boolean;
   };
   /** Optional sandbox settings for non-main sessions. */

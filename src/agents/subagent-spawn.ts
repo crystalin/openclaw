@@ -109,7 +109,7 @@ export type SpawnSubagentContext = {
 };
 
 export const SUBAGENT_SPAWN_ACCEPTED_NOTE =
-  "Auto-announce is push-based. After spawning children, do NOT call sessions_list, sessions_history, exec sleep, or any polling tool. Wait for completion events to arrive as user messages, track expected child session keys, and only send your final answer after ALL expected completions arrive. If a child completion event arrives AFTER your final answer, reply ONLY with NO_REPLY.";
+  "Auto-announce is push-based. After spawning children, do NOT call sessions__list, sessions__history, exec sleep, or any polling tool. Wait for completion events to arrive as user messages, track expected child session keys, and only send your final answer after ALL expected completions arrive. If a child completion event arrives AFTER your final answer, reply ONLY with NO_REPLY.";
 export const SUBAGENT_SPAWN_SESSION_ACCEPTED_NOTE =
   "thread-bound session stays active after this task; continue in-thread for follow-ups.";
 
@@ -418,7 +418,7 @@ export async function spawnSubagentDirect(
   if (callerDepth >= maxSpawnDepth) {
     return {
       status: "forbidden",
-      error: `sessions_spawn is not allowed at this depth (current depth: ${callerDepth}, max: ${maxSpawnDepth})`,
+      error: `sessions__spawn is not allowed at this depth (current depth: ${callerDepth}, max: ${maxSpawnDepth})`,
     };
   }
 
@@ -427,7 +427,7 @@ export async function spawnSubagentDirect(
   if (activeChildren >= maxChildren) {
     return {
       status: "forbidden",
-      error: `sessions_spawn has reached max active children for this session (${activeChildren}/${maxChildren})`,
+      error: `sessions__spawn has reached max active children for this session (${activeChildren}/${maxChildren})`,
     };
   }
 
@@ -442,7 +442,7 @@ export async function spawnSubagentDirect(
     return {
       status: "forbidden",
       error:
-        "sessions_spawn requires explicit agentId when requireAgentId is configured. Use agents_list to see allowed agent ids.",
+        "sessions__spawn requires explicit agentId when requireAgentId is configured. Use agents_list to see allowed agent ids.",
     };
   }
   const targetAgentId = requestedAgentId ? normalizeAgentId(requestedAgentId) : requesterAgentId;
@@ -462,7 +462,7 @@ export async function spawnSubagentDirect(
       const allowedText = allowSet.size > 0 ? Array.from(allowSet).join(", ") : "none";
       return {
         status: "forbidden",
-        error: `agentId is not allowed for sessions_spawn (allowed: ${allowedText})`,
+        error: `agentId is not allowed for sessions__spawn (allowed: ${allowedText})`,
       };
     }
   }
@@ -486,7 +486,7 @@ export async function spawnSubagentDirect(
     return {
       status: "forbidden",
       error:
-        'sessions_spawn sandbox="require" needs a sandboxed target runtime. Pick a sandboxed agentId or use sandbox="inherit".',
+        'sessions__spawn sandbox="require" needs a sandboxed target runtime. Pick a sandboxed agentId or use sandbox="inherit".',
     };
   }
   const childDepth = callerDepth + 1;

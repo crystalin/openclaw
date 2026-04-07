@@ -27,10 +27,10 @@ describe("createOpenClawCodingTools", () => {
       sessionKey: "agent:main:subagent:test",
     });
     const names = new Set(tools.map((tool) => tool.name));
-    expect(names.has("sessions_list")).toBe(false);
-    expect(names.has("sessions_history")).toBe(false);
-    expect(names.has("sessions_send")).toBe(false);
-    expect(names.has("sessions_spawn")).toBe(false);
+    expect(names.has("sessions__list")).toBe(false);
+    expect(names.has("sessions__history")).toBe(false);
+    expect(names.has("sessions__send")).toBe(false);
+    expect(names.has("sessions__spawn")).toBe(false);
     expect(names.has("subagents")).toBe(false);
 
     expect(names.has("read")).toBe(true);
@@ -75,9 +75,9 @@ describe("createOpenClawCodingTools", () => {
       },
     });
     const names = new Set(tools.map((tool) => tool.name));
-    expect(names.has("sessions_spawn")).toBe(false);
-    expect(names.has("sessions_list")).toBe(false);
-    expect(names.has("sessions_history")).toBe(false);
+    expect(names.has("sessions__spawn")).toBe(false);
+    expect(names.has("sessions__list")).toBe(false);
+    expect(names.has("sessions__history")).toBe(false);
     expect(names.has("subagents")).toBe(false);
   });
 
@@ -103,8 +103,8 @@ describe("createOpenClawCodingTools", () => {
     });
     const names = new Set(tools.map((tool) => tool.name));
     expect(names.has("message")).toBe(true);
-    expect(names.has("sessions_send")).toBe(true);
-    expect(names.has("sessions_spawn")).toBe(false);
+    expect(names.has("sessions__send")).toBe(true);
+    expect(names.has("sessions__spawn")).toBe(false);
     expect(names.has("exec")).toBe(false);
     expect(names.has("browser")).toBe(false);
   });

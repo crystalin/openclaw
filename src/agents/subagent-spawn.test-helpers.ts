@@ -25,7 +25,7 @@ export function createSubagentSpawnTestConfig(
       scope: "per-sender",
     },
     tools: {
-      sessions_spawn: {
+      sessions__spawn: {
         attachments: {
           enabled: true,
           maxFiles: 50,

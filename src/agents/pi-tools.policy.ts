@@ -38,7 +38,7 @@ const SUBAGENT_TOOL_DENY_ALWAYS = [
   "session_status",
   "cron",
   // Direct session sends - subagents communicate through announce chain
-  "sessions_send",
+  "sessions__send",
 ];
 
 /**
@@ -47,17 +47,17 @@ const SUBAGENT_TOOL_DENY_ALWAYS = [
  */
 const SUBAGENT_TOOL_DENY_LEAF = [
   "subagents",
-  "sessions_list",
-  "sessions_history",
-  "sessions_spawn",
+  "sessions__list",
+  "sessions__history",
+  "sessions__spawn",
 ];
 
 /**
  * Build the deny list for a sub-agent at a given depth.
  *
- * - Depth 1 with maxSpawnDepth >= 2 (orchestrator): allowed to use sessions_spawn,
- *   subagents, sessions_list, sessions_history so it can manage its children.
- * - Depth >= maxSpawnDepth (leaf): denied subagents, sessions_spawn, and
+ * - Depth 1 with maxSpawnDepth >= 2 (orchestrator): allowed to use sessions__spawn,
+ *   subagents, sessions__list, sessions__history so it can manage its children.
+ * - Depth >= maxSpawnDepth (leaf): denied subagents, sessions__spawn, and
  *   session management tools.
  */
 function resolveSubagentDenyList(depth: number, maxSpawnDepth: number): string[] {
@@ -66,7 +66,7 @@ function resolveSubagentDenyList(depth: number, maxSpawnDepth: number): string[]
     return [...SUBAGENT_TOOL_DENY_ALWAYS, ...SUBAGENT_TOOL_DENY_LEAF];
   }
   // Orchestrator sub-agent: only deny the always-denied tools.
-  // sessions_spawn, subagents, sessions_list, sessions_history are allowed.
+  // sessions__spawn, subagents, sessions__list, sessions__history are allowed.
   return [...SUBAGENT_TOOL_DENY_ALWAYS];
 }
 

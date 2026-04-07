@@ -209,7 +209,7 @@ function buildMessagingSection(params: {
   return [
     "## Messaging",
     "- Reply in current session → automatically routes to the source channel (Signal, Telegram, etc.)",
-    "- Cross-session messaging → use sessions_send(sessionKey, message)",
+    "- Cross-session messaging → use sessions__send(sessionKey, message)",
     "- Sub-agent orchestration → use subagents(action=list|steer|kill)",
     `- Runtime-generated completion events may ask for a user update. Rewrite those in your normal assistant voice and send the update (do not forward raw internal metadata or default to ${SILENT_REPLY_TOKEN}).`,
     "- Never use exec/curl for provider messaging; OpenClaw handles all routing internally.",
@@ -382,7 +382,7 @@ export function buildAgentSystemPrompt(params: {
 
   const normalizedTools = canonicalToolNames.map((tool) => normalizeLowercaseStringOrEmpty(tool));
   const availableTools = new Set(normalizedTools);
-  const hasSessionsSpawn = availableTools.has("sessions_spawn");
+  const hasSessionsSpawn = availableTools.has("sessions__spawn");
   const hasUpdatePlanTool = availableTools.has("update_plan");
   const acpHarnessSpawnAllowed = hasSessionsSpawn && acpSpawnRuntimeEnabled;
   const hasGateway = availableTools.has("gateway");
@@ -520,13 +520,13 @@ export function buildAgentSystemPrompt(params: {
     "If a task is more complex or takes longer, spawn a sub-agent. Completion is push-based: it will auto-announce when done.",
     ...(acpHarnessSpawnAllowed
       ? [
-          'For requests like "do this in codex/claude code/cursor/gemini" or similar ACP harnesses, treat it as ACP harness intent and call `sessions_spawn` with `runtime: "acp"`.',
+          'For requests like "do this in codex/claude code/cursor/gemini" or similar ACP harnesses, treat it as ACP harness intent and call `sessions__spawn` with `runtime: "acp"`.',
           'On Discord, default ACP harness requests to thread-bound persistent sessions (`thread: true`, `mode: "session"`) unless the user asks otherwise.',
           "Set `agentId` explicitly unless `acp.defaultAgent` is configured, and do not route ACP harness requests through `subagents`/`agents_list` or local PTY exec flows.",
-          'For ACP harness thread spawns, do not call `message` with `action=thread-create`; use `sessions_spawn` (`runtime: "acp"`, `thread: true`) as the single thread creation path.',
+          'For ACP harness thread spawns, do not call `message` with `action=thread-create`; use `sessions__spawn` (`runtime: "acp"`, `thread: true`) as the single thread creation path.',
         ]
       : []),
-    "Do not poll `subagents list` / `sessions_list` in a loop; only check status on-demand (for intervention, debugging, or when explicitly asked).",
+    "Do not poll `subagents list` / `sessions__list` in a loop; only check status on-demand (for intervention, debugging, or when explicitly asked).",
     "",
     ...buildOverridablePromptSection({
       override: providerSectionOverrides.interaction_style,
@@ -609,7 +609,7 @@ export function buildAgentSystemPrompt(params: {
           "Some tools may be unavailable due to sandbox policy.",
           "Sub-agents stay sandboxed (no elevated/host access). Need outside-sandbox read/write? Don't spawn; ask first.",
           hasSessionsSpawn && acpEnabled
-            ? 'ACP harness spawns are blocked from sandboxed sessions (`sessions_spawn` with `runtime: "acp"`). Use `runtime: "subagent"` instead.'
+            ? 'ACP harness spawns are blocked from sandboxed sessions (`sessions__spawn` with `runtime: "acp"`). Use `runtime: "subagent"` instead.'
             : "",
           params.sandboxInfo.containerWorkspaceDir
             ? `Sandbox container workdir: ${sanitizeForPromptLiteral(params.sandboxInfo.containerWorkspaceDir)}`

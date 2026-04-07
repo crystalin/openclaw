@@ -83,7 +83,7 @@ export function createSessionsSendTool(opts?: {
 }): AnyAgentTool {
   return {
     label: "Session Send",
-    name: "sessions_send",
+    name: "sessions__send",
     displaySummary: SESSIONS_SEND_TOOL_DISPLAY_SUMMARY,
     description: describeSessionsSendTool(),
     parameters: SessionsSendToolSchema,
@@ -122,7 +122,7 @@ export function createSessionsSendTool(opts?: {
           return jsonResult({
             runId: crypto.randomUUID(),
             status: "forbidden",
-            error: "Sandboxed sessions_send label lookup is limited to this agent",
+            error: "Sandboxed sessions__send label lookup is limited to this agent",
           });
         }
 
@@ -282,7 +282,7 @@ export function createSessionsSendTool(opts?: {
           kind: "inter_session",
           sourceSessionKey: opts?.agentSessionKey,
           sourceChannel: opts?.agentChannel,
-          sourceTool: "sessions_send",
+          sourceTool: "sessions__send",
         },
       };
       const requesterSessionKey = opts?.agentSessionKey;

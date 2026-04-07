@@ -131,14 +131,14 @@ describe("sessions tools", () => {
       return value;
     };
 
-    expect(schemaProp("sessions_history", "limit").type).toBe("number");
-    expect(schemaProp("sessions_list", "limit").type).toBe("number");
-    expect(schemaProp("sessions_list", "activeMinutes").type).toBe("number");
-    expect(schemaProp("sessions_list", "messageLimit").type).toBe("number");
-    expect(schemaProp("sessions_send", "timeoutSeconds").type).toBe("number");
+    expect(schemaProp("sessions__history", "limit").type).toBe("number");
+    expect(schemaProp("sessions__list", "limit").type).toBe("number");
+    expect(schemaProp("sessions__list", "activeMinutes").type).toBe("number");
+    expect(schemaProp("sessions__list", "messageLimit").type).toBe("number");
+    expect(schemaProp("sessions__send", "timeoutSeconds").type).toBe("number");
   });
 
-  it("sessions_list filters kinds and includes messages", async () => {
+  it("sessions__list filters kinds and includes messages", async () => {
     callGatewayMock.mockImplementation(async (opts: unknown) => {
       const request = opts as { method?: string };
       if (request.method === "sessions.list") {
@@ -204,10 +204,10 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions_list");
+    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions__list");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_list tool");
+      throw new Error("missing sessions__list tool");
     }
 
     const result = await tool.execute("call1", { messageLimit: 1 });
@@ -252,7 +252,7 @@ describe("sessions tools", () => {
     expect(cronDetails.sessions?.[0]?.kind).toBe("cron");
   });
 
-  it("sessions_list resolves transcriptPath from agent state dir for multi-store listings", async () => {
+  it("sessions__list resolves transcriptPath from agent state dir for multi-store listings", async () => {
     callGatewayMock.mockImplementation(async (opts: unknown) => {
       const request = opts as { method?: string };
       if (request.method === "sessions.list") {
@@ -271,10 +271,10 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions_list");
+    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions__list");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_list tool");
+      throw new Error("missing sessions__list tool");
     }
 
     const result = await tool.execute("call2b", {});
@@ -292,7 +292,7 @@ describe("sessions tools", () => {
     );
   });
 
-  it("sessions_history filters tool messages by default", async () => {
+  it("sessions__history filters tool messages by default", async () => {
     callGatewayMock.mockImplementation(async (opts: unknown) => {
       const request = opts as { method?: string };
       if (request.method === "chat.history") {
@@ -306,10 +306,10 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions_history");
+    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions__history");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_history tool");
+      throw new Error("missing sessions__history tool");
     }
 
     const result = await tool.execute("call3", { sessionKey: "main" });
@@ -325,7 +325,7 @@ describe("sessions tools", () => {
     expect(withToolsDetails.messages).toHaveLength(2);
   });
 
-  it("sessions_history caps oversized payloads and strips heavy fields", async () => {
+  it("sessions__history caps oversized payloads and strips heavy fields", async () => {
     const oversized = Array.from({ length: 80 }, (_, idx) => ({
       role: "assistant",
       content: [
@@ -355,10 +355,10 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions_history");
+    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions__history");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_history tool");
+      throw new Error("missing sessions__history tool");
     }
 
     const result = await tool.execute("call4b", {
@@ -402,7 +402,7 @@ describe("sessions tools", () => {
     expect(thinkingBlock?.thinkingSignature).toBeUndefined();
   });
 
-  it("sessions_history enforces a hard byte cap even when a single message is huge", async () => {
+  it("sessions__history enforces a hard byte cap even when a single message is huge", async () => {
     callGatewayMock.mockImplementation(async (opts: unknown) => {
       const request = opts as { method?: string };
       if (request.method === "chat.history") {
@@ -419,10 +419,10 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions_history");
+    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions__history");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_history tool");
+      throw new Error("missing sessions__history tool");
     }
 
     const result = await tool.execute("call4c", {
@@ -445,11 +445,11 @@ describe("sessions tools", () => {
     expect((details.bytes ?? 0) <= 80 * 1024).toBe(true);
     expect(details.messages).toHaveLength(1);
     expect(details.messages?.[0]?.content).toContain(
-      "[sessions_history omitted: message too large]",
+      "[sessions__history omitted: message too large]",
     );
   });
 
-  it("sessions_history sets contentRedacted when sensitive data is redacted", async () => {
+  it("sessions__history sets contentRedacted when sensitive data is redacted", async () => {
     callGatewayMock.mockReset();
     callGatewayMock.mockImplementation(async (opts: unknown) => {
       const request = opts as { method?: string };
@@ -468,10 +468,10 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions_history");
+    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions__history");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_history tool");
+      throw new Error("missing sessions__history tool");
     }
 
     const result = await tool.execute("call-redact-1", { sessionKey: "main" });
@@ -490,7 +490,7 @@ describe("sessions tools", () => {
     expect(textBlock?.text).not.toContain("sk-1234567890abcdef1234");
   });
 
-  it("sessions_history sets both contentRedacted and contentTruncated independently", async () => {
+  it("sessions__history sets both contentRedacted and contentTruncated independently", async () => {
     callGatewayMock.mockReset();
     const longPrefix = "safe text ".repeat(420);
     const sensitiveText = `${longPrefix} sk-9876543210fedcba9876 end`;
@@ -509,10 +509,10 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions_history");
+    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions__history");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_history tool");
+      throw new Error("missing sessions__history tool");
     }
 
     const result = await tool.execute("call-redact-2", { sessionKey: "main" });
@@ -526,7 +526,7 @@ describe("sessions tools", () => {
     expect(details.truncated).toBe(true);
   });
 
-  it("sessions_history resolves sessionId inputs", async () => {
+  it("sessions__history resolves sessionId inputs", async () => {
     const sessionId = "sess-group";
     const targetKey = "agent:main:discord:channel:1457165743010611293";
     callGatewayMock.mockImplementation(async (opts: unknown) => {
@@ -547,10 +547,10 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions_history");
+    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions__history");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_history tool");
+      throw new Error("missing sessions__history tool");
     }
 
     const result = await tool.execute("call5", { sessionKey: sessionId });
@@ -565,7 +565,7 @@ describe("sessions tools", () => {
     });
   });
 
-  it("sessions_history errors on missing sessionId", async () => {
+  it("sessions__history errors on missing sessionId", async () => {
     const sessionId = "aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa";
     callGatewayMock.mockImplementation(async (opts: unknown) => {
       const request = opts as { method?: string };
@@ -575,10 +575,10 @@ describe("sessions tools", () => {
       return {};
     });
 
-    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions_history");
+    const tool = createOpenClawTools().find((candidate) => candidate.name === "sessions__history");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_history tool");
+      throw new Error("missing sessions__history tool");
     }
 
     const result = await tool.execute("call6", { sessionKey: sessionId });
@@ -587,7 +587,7 @@ describe("sessions tools", () => {
     expect(details.error).toMatch(/Session not found|No session found/);
   });
 
-  it("sessions_send supports fire-and-forget and wait", async () => {
+  it("sessions__send supports fire-and-forget and wait", async () => {
     const calls: Array<{ method?: string; params?: unknown }> = [];
     let agentCallCount = 0;
     let _historyCallCount = 0;
@@ -651,10 +651,10 @@ describe("sessions tools", () => {
     const tool = createOpenClawTools({
       agentSessionKey: requesterKey,
       agentChannel: "discord",
-    }).find((candidate) => candidate.name === "sessions_send");
+    }).find((candidate) => candidate.name === "sessions__send");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_send tool");
+      throw new Error("missing sessions__send tool");
     }
 
     const fire = await tool.execute("call5", {
@@ -730,7 +730,7 @@ describe("sessions tools", () => {
     expect(sendCallCount).toBe(0);
   });
 
-  it("sessions_send resolves sessionId inputs", async () => {
+  it("sessions__send resolves sessionId inputs", async () => {
     const sessionId = "sess-send";
     const targetKey = "agent:main:discord:channel:123";
     callGatewayMock.mockImplementation(async (opts: unknown) => {
@@ -756,10 +756,10 @@ describe("sessions tools", () => {
     const tool = createOpenClawTools({
       agentSessionKey: "main",
       agentChannel: "discord",
-    }).find((candidate) => candidate.name === "sessions_send");
+    }).find((candidate) => candidate.name === "sessions__send");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_send tool");
+      throw new Error("missing sessions__send tool");
     }
 
     const result = await tool.execute("call7", {
@@ -778,7 +778,7 @@ describe("sessions tools", () => {
     });
   });
 
-  it("sessions_send runs ping-pong then announces", async () => {
+  it("sessions__send runs ping-pong then announces", async () => {
     const calls: Array<{ method?: string; params?: unknown }> = [];
     let agentCallCount = 0;
     let lastWaitedRunId: string | undefined;
@@ -847,10 +847,10 @@ describe("sessions tools", () => {
     const tool = createOpenClawTools({
       agentSessionKey: requesterKey,
       agentChannel: "discord",
-    }).find((candidate) => candidate.name === "sessions_send");
+    }).find((candidate) => candidate.name === "sessions__send");
     expect(tool).toBeDefined();
     if (!tool) {
-      throw new Error("missing sessions_send tool");
+      throw new Error("missing sessions__send tool");
     }
 
     const waited = await tool.execute("call7", {

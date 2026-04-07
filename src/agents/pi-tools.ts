@@ -320,7 +320,7 @@ export function createOpenClawCodingTools(options?: {
   disableMessageTool?: boolean;
   /** Whether the sender is an owner (required for owner-only tools). */
   senderIsOwner?: boolean;
-  /** Callback invoked when sessions_yield tool is called. */
+  /** Callback invoked when sessions__yield tool is called. */
   onYield?: (message: string) => Promise<void> | void;
 }): AnyAgentTool[] {
   const execToolName = "exec";

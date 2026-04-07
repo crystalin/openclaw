@@ -13,7 +13,7 @@ const callGatewayMock = getCallGatewayMock();
 
 type SpawnResult = { status?: string; note?: string };
 
-describe("sessions_spawn: cron isolated session note suppression", () => {
+describe("sessions__spawn: cron isolated session note suppression", () => {
   beforeEach(() => {
     callGatewayMock.mockReset();
     resetSubagentRegistryForTests();

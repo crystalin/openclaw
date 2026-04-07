@@ -418,22 +418,22 @@ export const TOOL_DISPLAY_CONFIG: ToolDisplayConfig = {
       title: "Session Status",
       detailKeys: ["sessionKey", "model"],
     },
-    sessions_list: {
+    sessions__list: {
       emoji: "🗂️",
       title: "Sessions",
       detailKeys: ["kinds", "limit", "activeMinutes", "messageLimit"],
     },
-    sessions_send: {
+    sessions__send: {
       emoji: "📨",
       title: "Session Send",
       detailKeys: ["label", "sessionKey", "agentId", "timeoutSeconds"],
     },
-    sessions_history: {
+    sessions__history: {
       emoji: "🧾",
       title: "Session History",
       detailKeys: ["sessionKey", "limit", "includeTools"],
     },
-    sessions_spawn: {
+    sessions__spawn: {
       emoji: "🧑‍🔧",
       title: "Sub-agent",
       detailKeys: ["label", "task", "agentId", "model", "thinking", "runTimeoutSeconds", "cleanup"],
@@ -681,7 +681,7 @@ export const TOOL_DISPLAY_CONFIG: ToolDisplayConfig = {
       title: "PDF",
       detailKeys: ["path", "paths", "url", "urls", "prompt", "pageRange", "model"],
     },
-    sessions_yield: {
+    sessions__yield: {
       emoji: "⏸️",
       title: "Yield",
       detailKeys: ["message"],

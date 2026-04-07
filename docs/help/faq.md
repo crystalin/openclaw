@@ -1034,7 +1034,7 @@ for usage/billing and raise limits as needed.
 
     Basic flow:
 
-    - Spawn with `sessions_spawn` using `thread: true` (and optionally `mode: "session"` for persistent follow-up).
+    - Spawn with `sessions__spawn` using `thread: true` (and optionally `mode: "session"` for persistent follow-up).
     - Or manually bind with `/focus <target>`.
     - Use `/agents` to inspect binding state.
     - Use `/session idle <duration|off>` and `/session max-age <duration|off>` to control auto-unfocus.

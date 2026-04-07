@@ -67,7 +67,7 @@ beforeAll(async () => {
   ({ createSessionsSpawnTool } = await import("./tools/sessions-spawn-tool.js"));
 });
 
-describe("sessions_spawn depth + child limits", () => {
+describe("sessions__spawn depth + child limits", () => {
   beforeEach(() => {
     resetSubagentRegistryForTests();
     callGatewayMock.mockClear();
@@ -100,7 +100,7 @@ describe("sessions_spawn depth + child limits", () => {
 
     expect(result.details).toMatchObject({
       status: "forbidden",
-      error: "sessions_spawn is not allowed at this depth (current depth: 1, max: 1)",
+      error: "sessions__spawn is not allowed at this depth (current depth: 1, max: 1)",
     });
   });
 
@@ -152,7 +152,7 @@ describe("sessions_spawn depth + child limits", () => {
 
     expect(result.details).toMatchObject({
       status: "forbidden",
-      error: "sessions_spawn is not allowed at this depth (current depth: 2, max: 2)",
+      error: "sessions__spawn is not allowed at this depth (current depth: 2, max: 2)",
     });
   });
 
@@ -165,7 +165,7 @@ describe("sessions_spawn depth + child limits", () => {
 
     expect(result.details).toMatchObject({
       status: "forbidden",
-      error: "sessions_spawn is not allowed at this depth (current depth: 2, max: 2)",
+      error: "sessions__spawn is not allowed at this depth (current depth: 2, max: 2)",
     });
   });
 
@@ -178,7 +178,7 @@ describe("sessions_spawn depth + child limits", () => {
 
     expect(result.details).toMatchObject({
       status: "forbidden",
-      error: "sessions_spawn is not allowed at this depth (current depth: 2, max: 2)",
+      error: "sessions__spawn is not allowed at this depth (current depth: 2, max: 2)",
     });
   });
 
@@ -211,7 +211,7 @@ describe("sessions_spawn depth + child limits", () => {
 
     expect(result.details).toMatchObject({
       status: "forbidden",
-      error: "sessions_spawn has reached max active children for this session (1/1)",
+      error: "sessions__spawn has reached max active children for this session (1/1)",
     });
   });
 

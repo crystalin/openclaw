@@ -335,7 +335,7 @@ describe("resolveAnnounceTarget", () => {
   });
 });
 
-describe("sessions_list gating", () => {
+describe("sessions__list gating", () => {
   beforeEach(() => {
     callGatewayMock.mockClear();
     callGatewayMock.mockResolvedValue({
@@ -375,7 +375,7 @@ describe("sessions_list gating", () => {
   });
 });
 
-describe("sessions_list transcriptPath resolution", () => {
+describe("sessions__list transcriptPath resolution", () => {
   beforeEach(() => {
     callGatewayMock.mockClear();
     loadConfigMock.mockReturnValue({
@@ -493,7 +493,7 @@ describe("sessions_list transcriptPath resolution", () => {
   });
 });
 
-describe("sessions_list channel derivation", () => {
+describe("sessions__list channel derivation", () => {
   beforeEach(() => {
     callGatewayMock.mockClear();
     loadConfigMock.mockReturnValue({
@@ -525,7 +525,7 @@ describe("sessions_list channel derivation", () => {
   });
 });
 
-describe("sessions_send gating", () => {
+describe("sessions__send gating", () => {
   beforeEach(() => {
     callGatewayMock.mockClear();
   });

@@ -40,7 +40,7 @@ function truncateHistoryText(text: string): {
   redacted: boolean;
 } {
   // Redact credentials, API keys, tokens before returning session history.
-  // Prevents sensitive data leakage via sessions_history tool (OC-07).
+  // Prevents sensitive data leakage via sessions__history tool (OC-07).
   const sanitized = redactSensitiveText(text);
   const redacted = sanitized !== text;
   if (sanitized.length <= SESSIONS_HISTORY_TEXT_MAX_CHARS) {
@@ -166,7 +166,7 @@ function enforceSessionsHistoryHardCap(params: {
   const placeholder = [
     {
       role: "assistant",
-      content: "[sessions_history omitted: message too large]",
+      content: "[sessions__history omitted: message too large]",
     },
   ];
   return { items: placeholder, bytes: jsonUtf8Bytes(placeholder), hardCapped: true };
@@ -180,7 +180,7 @@ export function createSessionsHistoryTool(opts?: {
 }): AnyAgentTool {
   return {
     label: "Session History",
-    name: "sessions_history",
+    name: "sessions__history",
     displaySummary: SESSIONS_HISTORY_TOOL_DISPLAY_SUMMARY,
     description: describeSessionsHistoryTool(),
     parameters: SessionsHistoryToolSchema,

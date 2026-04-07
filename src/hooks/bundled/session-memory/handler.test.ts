@@ -310,7 +310,7 @@ describe("session-memory hook", () => {
         message: {
           role: "user",
           content: "Forwarded internal instruction",
-          provenance: { kind: "inter_session", sourceTool: "sessions_send" },
+          provenance: { kind: "inter_session", sourceTool: "sessions__send" },
         },
       }),
       JSON.stringify({

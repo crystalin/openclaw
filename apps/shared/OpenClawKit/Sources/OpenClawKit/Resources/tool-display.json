@@ -624,7 +624,7 @@
         "model"
       ]
     },
-    "sessions_list": {
+    "sessions__list": {
       "emoji": "🗂️",
       "title": "Sessions",
       "detailKeys": [
@@ -634,7 +634,7 @@
         "messageLimit"
       ]
     },
-    "sessions_send": {
+    "sessions__send": {
       "emoji": "📨",
       "title": "Session Send",
       "detailKeys": [
@@ -644,7 +644,7 @@
         "timeoutSeconds"
       ]
     },
-    "sessions_history": {
+    "sessions__history": {
       "emoji": "🧾",
       "title": "Session History",
       "detailKeys": [
@@ -653,7 +653,7 @@
         "includeTools"
       ]
     },
-    "sessions_spawn": {
+    "sessions__spawn": {
       "emoji": "🧑‍🔧",
       "title": "Sub-agent",
       "detailKeys": [
@@ -1091,7 +1091,7 @@
         "model"
       ]
     },
-    "sessions_yield": {
+    "sessions__yield": {
       "emoji": "⏸️",
       "title": "Yield",
       "detailKeys": [

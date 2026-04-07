@@ -12,7 +12,7 @@ const MUTATING_TOOL_NAMES = new Set([
   "bash",
   "process",
   "message",
-  "sessions_send",
+  "sessions__send",
   "cron",
   "gateway",
   "canvas",
@@ -119,7 +119,7 @@ export function isMutatingToolCall(toolName: string, args: unknown): boolean {
     case "apply_patch":
     case "exec":
     case "bash":
-    case "sessions_send":
+    case "sessions__send":
       return true;
     case "process":
       return action != null && PROCESS_MUTATING_ACTIONS.has(action);

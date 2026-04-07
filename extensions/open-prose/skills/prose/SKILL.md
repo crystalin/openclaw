@@ -10,7 +10,7 @@ OpenProse is a programming language for AI sessions. LLMs are simulators—when 
 
 ## OpenClaw Runtime Mapping
 
-- **Task tool** in the upstream spec == OpenClaw `sessions_spawn`
+- **Task tool** in the upstream spec == OpenClaw `sessions__spawn`
 - **File I/O** == OpenClaw `read`/`write`
 - **Remote fetch** == OpenClaw `web_fetch` (or `exec` with curl when POST is required)
 

@@ -79,7 +79,7 @@ Implementation:
 
 ## Global rule: inter-session input provenance
 
-When an agent sends a prompt into another session via `sessions_send` (including
+When an agent sends a prompt into another session via `sessions__send` (including
 agent-to-agent reply/announce steps), OpenClaw persists the created user turn with:
 
 - `message.provenance.kind = "inter_session"`

@@ -62,7 +62,7 @@ describe("owner-only tool gating", () => {
     expect(toolNames).not.toContain("write");
     expect(toolNames).not.toContain("edit");
     expect(toolNames).not.toContain("message");
-    expect(toolNames).not.toContain("sessions_send");
+    expect(toolNames).not.toContain("sessions__send");
     expect(toolNames).not.toContain("subagents");
   });
 });

@@ -450,7 +450,7 @@ describe("installSessionToolResultGuard", () => {
         (message as { role?: string }).role === "user"
           ? castAgentMessage({
               ...(message as unknown as Record<string, unknown>),
-              provenance: { kind: "inter_session", sourceTool: "sessions_send" },
+              provenance: { kind: "inter_session", sourceTool: "sessions__send" },
             })
           : message,
     });
@@ -469,7 +469,7 @@ describe("installSessionToolResultGuard", () => {
     expect(persisted?.message?.role).toBe("user");
     expect(persisted?.message?.provenance).toEqual({
       kind: "inter_session",
-      sourceTool: "sessions_send",
+      sourceTool: "sessions__send",
     });
   });
 

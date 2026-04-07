@@ -383,7 +383,7 @@ describe("handleInlineActions", () => {
     const toolExecute = vi.fn(async () => ({ text: "spawned" }));
     createOpenClawToolsMock.mockReturnValue([
       {
-        name: "sessions_spawn",
+        name: "sessions__spawn",
         execute: toolExecute,
       },
     ]);
@@ -399,7 +399,7 @@ describe("handleInlineActions", () => {
         description: "Spawn a subagent",
         dispatch: {
           kind: "tool",
-          toolName: "sessions_spawn",
+          toolName: "sessions__spawn",
           argMode: "raw",
         },
         sourceFilePath: "/tmp/plugin/commands/spawn-subagent.md",

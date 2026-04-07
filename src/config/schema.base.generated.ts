@@ -16700,7 +16700,7 @@ export const GENERATED_BASE_CONFIG_SCHEMA: BaseConfigSchemaResponse = {
                 enum: ["self", "tree", "agent", "all"],
                 title: "Session Tools Visibility",
                 description:
-                  'Controls which sessions can be targeted by sessions_list/sessions_history/sessions_send. ("tree" default = current session + spawned subagent sessions; "self" = only current; "agent" = any session in the current agent id; "all" = any session; cross-agent still requires tools.agentToAgent).',
+                  'Controls which sessions can be targeted by sessions__list/sessions__history/sessions__send. ("tree" default = current session + spawned subagent sessions; "self" = only current; "agent" = any session in the current agent id; "all" = any session; cross-agent still requires tools.agentToAgent).',
               },
             },
             additionalProperties: false,
@@ -17137,7 +17137,7 @@ export const GENERATED_BASE_CONFIG_SCHEMA: BaseConfigSchemaResponse = {
             description:
               "Tool policy wrapper for sandboxed agent executions so sandbox runs can have distinct capability boundaries. Use this to enforce stronger safety in sandbox contexts.",
           },
-          sessions_spawn: {
+          sessions__spawn: {
             type: "object",
             properties: {
               attachments: {
@@ -23487,7 +23487,7 @@ export const GENERATED_BASE_CONFIG_SCHEMA: BaseConfigSchemaResponse = {
     },
     "tools.sessions.visibility": {
       label: "Session Tools Visibility",
-      help: 'Controls which sessions can be targeted by sessions_list/sessions_history/sessions_send. ("tree" default = current session + spawned subagent sessions; "self" = only current; "agent" = any session in the current agent id; "all" = any session; cross-agent still requires tools.agentToAgent).',
+      help: 'Controls which sessions can be targeted by sessions__list/sessions__history/sessions__send. ("tree" default = current session + spawned subagent sessions; "self" = only current; "agent" = any session in the current agent id; "all" = any session; cross-agent still requires tools.agentToAgent).',
       tags: ["storage", "tools"],
     },
     "tools.exec.notifyOnExit": {

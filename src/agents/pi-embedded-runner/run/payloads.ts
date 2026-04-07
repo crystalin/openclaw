@@ -85,10 +85,10 @@ function resolveToolErrorWarningPolicy(params: {
   if (isExecLikeToolName(params.lastToolError.toolName) && !includeDetails) {
     return { showWarning: false, includeDetails };
   }
-  // sessions_send timeouts and errors are transient inter-session communication
+  // sessions__send timeouts and errors are transient inter-session communication
   // issues — the message may still have been delivered. Suppress warnings to
   // prevent raw error text from leaking into the chat surface (#23989).
-  if (normalizedToolName === "sessions_send") {
+  if (normalizedToolName === "sessions__send") {
     return { showWarning: false, includeDetails };
   }
   const isMutatingToolError =

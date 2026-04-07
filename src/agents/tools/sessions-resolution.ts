@@ -241,7 +241,7 @@ async function callGatewayResolveSessionId(params: {
   const key = typeof result?.key === "string" ? result.key.trim() : "";
   if (!key) {
     throw new Error(
-      `Session not found: ${params.sessionId} (use the full sessionKey from sessions_list)`,
+      `Session not found: ${params.sessionId} (use the full sessionKey from sessions__list)`,
     );
   }
   return key;
@@ -277,7 +277,7 @@ async function resolveSessionKeyFromSessionId(params: {
       status: "error",
       error:
         message ||
-        `Session not found: ${params.sessionId} (use the full sessionKey from sessions_list)`,
+        `Session not found: ${params.sessionId} (use the full sessionKey from sessions__list)`,
     };
   }
 }

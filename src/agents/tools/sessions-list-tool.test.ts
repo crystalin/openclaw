@@ -52,7 +52,7 @@ describe("sessions-list-tool", () => {
     });
   });
 
-  it("keeps deliveryContext.threadId in sessions_list results", async () => {
+  it("keeps deliveryContext.threadId in sessions__list results", async () => {
     mocks.gatewayCall.mockImplementation(async (opts: unknown) => {
       const request = opts as { method?: string };
       if (request.method === "sessions.list") {
@@ -114,7 +114,7 @@ describe("sessions-list-tool", () => {
     });
   });
 
-  it("keeps numeric deliveryContext.threadId in sessions_list results", async () => {
+  it("keeps numeric deliveryContext.threadId in sessions__list results", async () => {
     mocks.gatewayCall.mockImplementation(async (opts: unknown) => {
       const request = opts as { method?: string };
       if (request.method === "sessions.list") {
@@ -159,7 +159,7 @@ describe("sessions-list-tool", () => {
     });
   });
 
-  it("keeps live session setting metadata in sessions_list results", async () => {
+  it("keeps live session setting metadata in sessions__list results", async () => {
     mocks.gatewayCall.mockImplementation(async (opts: unknown) => {
       const request = opts as { method?: string };
       if (request.method === "sessions.list") {

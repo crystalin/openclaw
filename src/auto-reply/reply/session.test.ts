@@ -2565,7 +2565,7 @@ describe("initSessionState internal channel routing preservation", () => {
       ctx: {
         Body: "internal handoff",
         SessionKey: sessionKey,
-        OriginatingChannel: "sessions_send",
+        OriginatingChannel: "sessions__send",
         OriginatingTo: "session:handoff",
       },
       cfg,
@@ -2605,14 +2605,14 @@ describe("initSessionState internal channel routing preservation", () => {
       ctx: {
         Body: "handoff only",
         SessionKey: "agent:main:main",
-        OriginatingChannel: "sessions_send",
+        OriginatingChannel: "sessions__send",
         OriginatingTo: "session:handoff",
       },
       cfg,
       commandAuthorized: true,
     });
 
-    expect(result.sessionEntry.lastChannel).toBe("sessions_send");
+    expect(result.sessionEntry.lastChannel).toBe("sessions__send");
     expect(result.sessionEntry.lastTo).toBe("session:handoff");
   });
 

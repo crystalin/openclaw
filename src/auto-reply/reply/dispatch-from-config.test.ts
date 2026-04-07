@@ -1145,7 +1145,7 @@ describe("dispatchReplyFromConfig", () => {
       _cfg?: OpenClawConfig,
     ) => {
       expect(opts?.onToolResult).toBeDefined();
-      await opts?.onToolResult?.({ text: "🔧 tools/sessions_send" });
+      await opts?.onToolResult?.({ text: "🔧 tools/sessions__send" });
       await opts?.onToolResult?.({
         mediaUrl: "https://example.com/tts-native.opus",
       });
@@ -1157,7 +1157,7 @@ describe("dispatchReplyFromConfig", () => {
     expect(dispatcher.sendToolResult).toHaveBeenCalledTimes(2);
     expect(dispatcher.sendToolResult).toHaveBeenNthCalledWith(
       1,
-      expect.objectContaining({ text: "🔧 tools/sessions_send" }),
+      expect.objectContaining({ text: "🔧 tools/sessions__send" }),
     );
     const sent = (dispatcher.sendToolResult as Mock).mock.calls[1]?.[0] as ReplyPayload | undefined;
     expect(sent?.mediaUrl).toBe("https://example.com/tts-native.opus");

@@ -187,7 +187,7 @@ export type DiscordThreadBindingsConfig = {
    */
   maxAgeHours?: number;
   /**
-   * Allow `sessions_spawn({ thread: true })` to auto-create + bind Discord
+   * Allow `sessions__spawn({ thread: true })` to auto-create + bind Discord
    * threads for subagent sessions. Default: false (opt-in).
    */
   spawnSubagentSessions?: boolean;

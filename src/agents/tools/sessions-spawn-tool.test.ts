@@ -23,7 +23,7 @@ vi.mock("../acp-spawn.js", () => ({
 
 let createSessionsSpawnTool: typeof import("./sessions-spawn-tool.js").createSessionsSpawnTool;
 
-describe("sessions_spawn tool", () => {
+describe("sessions__spawn tool", () => {
   beforeAll(async () => {
     ({ createSessionsSpawnTool } = await import("./sessions-spawn-tool.js"));
   });

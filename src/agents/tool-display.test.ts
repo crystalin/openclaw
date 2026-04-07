@@ -5,7 +5,7 @@ describe("tool display details", () => {
   it("skips zero/false values for optional detail fields", () => {
     const detail = formatToolDetail(
       resolveToolDisplay({
-        name: "sessions_spawn",
+        name: "sessions__spawn",
         args: {
           task: "double-message-bug-gpt",
           label: 0,
@@ -38,7 +38,7 @@ describe("tool display details", () => {
   it("keeps positive numbers and true booleans", () => {
     const detail = formatToolDetail(
       resolveToolDisplay({
-        name: "sessions_history",
+        name: "sessions__history",
         args: {
           sessionKey: "agent:main:main",
           limit: 20,
